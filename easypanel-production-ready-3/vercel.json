@@ -1,0 +1,77 @@
+{
+  "functions": {
+    "api/enquiry.js": {
+      "maxDuration": 10
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/decking-products/:path*",
+      "destination": "/roof-flashings-fixings/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/fencing-screening/:path*",
+      "destination": "/products/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/page/:page*",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/category/insulated-roofing/:path*",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/category/fencing/:path*",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/common-myths-about-insulated-roof-panels-debunked/:path*",
+      "destination": "/blog/common-myths-about-insulated-roof-panels/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/common-myths-about-insulated-roof-panels-de-bunked/:path*",
+      "destination": "/blog/common-myths-about-insulated-roof-panels/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/insulated-roof-panels/how-should-insulated-roof-panel-thickness-be-specified/:path*",
+      "destination": "/specification-span-table/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/how-to-choose-insulated-roof-panels-r-values,%E2%80%93spans-%E2%80%93profiles",
+      "destination": "/blog/how-to-choose-insulated-roof-panels/",
+      "permanent": true
+    }
+  ]
+}
