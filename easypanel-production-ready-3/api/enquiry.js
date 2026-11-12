@@ -57,7 +57,7 @@ export default async function handler(req, res) {
       method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({ client_id: M365_CLIENT_ID, client_secret: M365_CLIENT_SECRET, scope: 'https://graph.microsoft.com/.default', grant_type: 'client_credentials' }),
     });
-    if (!tokenResponse.ok) { console.error('Microsoft identity token request failed:', tokenResponse.status); return respond(res, 502, 'We could not send your enquiry. Please call or email us.'); }
+    if (!tokenResponse.ok) { const identityError = await tokenResponse.json().catch(() => ({})); console.error('Microsoft identity token request failed:', tokenResponse.status, 'OAuth error:', String(identityError.error || 'unknown'), 'AADSTS codes:', Array.isArray(identityError.error_codes) ? identityError.error_codes.filter(code => Number.isInteger(code)) : []); return respond(res, 502, 'We could not send your enquiry. Please call or email us.'); }
     const { access_token: accessToken } = await tokenResponse.json();
     const mailbox = process.env.M365_MAILBOX || 'admin@easypanel.com.au';
     const mailResponse = await fetch(`https://graph.microsoft.com/v1.0/users/${encodeURIComponent(mailbox)}/sendMail`, {
