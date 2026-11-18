@@ -23,9 +23,11 @@ export default async function handler(req, res) {
   const elapsed = Date.now() - started;
   if (!Number.isFinite(started) || elapsed < 1800 || elapsed > 2 * 60 * 60 * 1000) return respond(res, 400, 'Please reload the form and try again.');
 
-  const name = clean(data.name, 120), phone = clean(data.phone, 50), email = clean(data.email, 200), postcode = clean(data.postcode, 4);
+  const name = clean(data.name, 120), phone = clean(data.phone, 50), email = clean(data.email, 200), postcode = clean(data.postcode);
   const product = clean(data.product, 100), message = clean(data.message, 3000);
-  if (!name || !phone || !emailPattern.test(email) || !/^\d{4}$/.test(postcode) || !product || !message || data.consent !== true) return respond(res, 400, 'Please complete the required fields.');
+  if (!phone && !email) return respond(res, 400, 'Enter a phone number or email address so we can get back to you.');
+  if (email && !emailPattern.test(email)) return respond(res, 400, 'Please enter a valid email address.');
+  if (postcode && !/^\d{4}$/.test(postcode)) return respond(res, 400, 'Please enter a four-digit delivery postcode.');
   const files = Array.isArray(data.files) ? data.files : [];
   if (files.length > 3) return respond(res, 400, 'Please attach no more than three files.');
   let total = 0;
@@ -51,7 +53,7 @@ export default async function handler(req, res) {
     'Roof style': clean(data.roofstyle, 100), 'Decking project': clean(data.decktype, 100),
     Dimensions: clean(data.dimensions, 250), Message: message,
   };
-  const text = Object.entries(fields).map(([key, value]) => `${key}: ${value}`).join('\n');
+  const text = Object.entries(fields).filter(([, value]) => value).map(([key, value]) => `${key}: ${value}`).join('\n');
   try {
     const tokenResponse = await fetch(`https://login.microsoftonline.com/${encodeURIComponent(M365_TENANT_ID)}/oauth2/v2.0/token`, {
       method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -65,10 +67,10 @@ export default async function handler(req, res) {
       headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: {
-          subject: `Easy Panel enquiry: ${product} - ${postcode}`,
+          subject: ['Easy Panel enquiry', product, postcode].filter(Boolean).join(' - '),
           body: { contentType: 'Text', content: text },
           toRecipients: [{ emailAddress: { address: mailbox } }],
-          replyTo: [{ emailAddress: { address: email, name } }],
+          ...(email ? { replyTo: [{ emailAddress: { address: email, ...(name ? { name } : {}) } }] } : {}),
           ...(attachments.length ? { attachments } : {}),
         },
         saveToSentItems: true,
