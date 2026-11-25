@@ -42,7 +42,7 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
     for (const [section, products] of sections) {
       if (!section) continue;
       section.hidden = !products.includes(product.value);
-      section.querySelector('select').disabled = section.hidden;
+      section.disabled = section.hidden;
     }
   }
 

@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     data.enquiry_type === 'detailed' ? 'Detailed quote' : '';
   if (!phone && !email) return respond(res, 400, 'Enter a phone number or email address so we can get back to you.');
   if (email && !emailPattern.test(email)) return respond(res, 400, 'Please enter a valid email address.');
-  if (postcode && !/^\d{4}$/.test(postcode)) return respond(res, 400, 'Please enter a four-digit delivery postcode.');
+  if (postcode && !/^\d{4}$/.test(postcode)) return respond(res, 400, 'Please enter a four-digit postcode.');
   const files = Array.isArray(data.files) ? data.files : [];
   if (files.length > 3) return respond(res, 400, 'Please attach no more than three files.');
   let total = 0;
@@ -50,10 +50,27 @@ export default async function handler(req, res) {
     attachments.push({ '@odata.type': '#microsoft.graph.fileAttachment', name: filename, contentType: file.type, contentBytes: content });
   }
 
+  const windClass = clean(data.wind_class, 30);
+  const roofDetails = ['Insulated roofing panels', 'Roofing and decking', 'Roofing accessories'].includes(product);
+  const windReview = enquiryLabel === 'Detailed quote' && roofDetails && postcode && (!windClass || windClass === 'Unsure')
+    ? 'Use the site postcode for an initial indication and confirm the site wind class.'
+    : '';
   const fields = {
-    'Enquiry type': enquiryLabel, Name: name, Phone: phone, Email: email, 'Delivery postcode': postcode, Product: product,
+    'Enquiry type': enquiryLabel, Name: name, Phone: phone, Email: email, [enquiryLabel === 'Detailed quote' ? 'Project site postcode' : 'Delivery postcode']: postcode, Product: product,
     'Roof style': clean(data.roofstyle, 100), 'Decking project': clean(data.decktype, 100),
-    Dimensions: clean(data.dimensions, 250), Message: message,
+    Dimensions: clean(data.dimensions, 250),
+    'Roof panel profile': clean(data.roof_profile, 80),
+    'Open sides': clean(data.open_sides, 80),
+    'Panel support layout': clean(data.support_layout, 100),
+    'Span between supports (m)': clean(data.panel_span_m, 30),
+    'Total panel length (m)': clean(data.panel_length_m, 30),
+    'Gutter-end overhang (m)': clean(data.gutter_overhang_m, 30),
+    'Opposite-end overhang (m)': clean(data.opposite_overhang_m, 30),
+    'Site wind class (customer supplied)': windClass,
+    'Wind class follow-up': windReview,
+    'Top-side roof colour': clean(data.roof_colour, 80),
+    'Flashing colour': clean(data.flashing_colour, 80),
+    Message: message,
   };
   const text = Object.entries(fields).filter(([, value]) => value).map(([key, value]) => `${key}: ${value}`).join('\n');
   try {

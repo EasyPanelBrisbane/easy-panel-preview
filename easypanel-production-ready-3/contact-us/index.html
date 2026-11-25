@@ -39,6 +39,20 @@ a{color:#006d86}
 .roof-styles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:10px 0 0;padding:0;list-style:none;text-align:center}
 .roof-styles li{border:1px solid #dbe4e5;border-radius:6px;padding:6px 0;font-size:.8rem;overflow-wrap:anywhere}
 .roof-styles svg{width:64px;max-width:100%;height:36px;display:block;margin:auto;fill:none;stroke:#13778b;stroke-width:2;stroke-linejoin:round}
+
+.quote-fields,.profile-options{min-width:0;border:0;padding:0;margin:18px 0 0}
+.quote-fields>legend,.profile-options>legend{font-weight:700;padding:0}
+.quote-fields>legend{font-size:1.12rem}
+.profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.profile-card{display:flex;align-items:center;gap:7px;padding:8px;margin:0;border:1px solid #aabfc4;border-radius:7px;color:#172e38;cursor:pointer}
+.profile-grid .profile-card{display:grid;grid-template-columns:auto minmax(0,1fr)}
+.profile-card input{width:auto;margin:0;accent-color:#13778b}
+.profile-card img{grid-column:1/-1;width:100%;height:auto;border-radius:4px}
+.profile-card:has(input:checked){border-color:#13778b;background:#edf7f8}
+.profile-card:has(input:focus-visible){outline:2px solid #006d86;outline-offset:2px}
+.profile-unsure{width:fit-content;max-width:100%;margin-top:8px}
+.span-diagram{width:min(100%,260px);height:auto;display:block;color:#006d86;margin-top:8px}
+.field-help{margin:5px 0 0}
 @media(max-width:760px){.grid,.pair{grid-template-columns:minmax(0,1fr)}.grid{grid-template-areas:"enquiry" "office"}.panel{padding:20px}}
 </style><link rel="canonical" href="https://www.easypanel.com.au/contact-us/"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Contact Easy Panel | Underwood QLD", "url": "https://www.easypanel.com.au/contact-us/", "publisher": {"@type": "Organization", "name": "Easy Panel", "url": "https://www.easypanel.com.au/"}}</script></head><body><header><a href="../index.html" style="color:white;font-weight:bold;font-size:22px">EASY PANEL</a><nav aria-label="Main navigation" style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px"><a style="color:white" href="../index.html">Home</a><a style="color:white" href="../products/index.html">Products</a><a style="color:white" href="../specification-span-table/index.html">Technical Centre</a><a style="color:white" href="../contact-us/index.html">Contact</a></nav><a style="color:white" href="tel:+61732995541">(07) 3299 5541</a></header><main><p class="muted"><a href="../index.html">Home</a> / Contact Us</p><h1>Contact Easy Panel</h1><p>Talk to our team about insulated roofing panels, composite decking, pricing and your next outdoor project. Customers are welcome to visit during business hours.</p><div class="grid"><section class="panel enquiry-panel">
 <h2>Quick enquiry</h2>
@@ -87,12 +101,28 @@ a{color:#006d86}
   <option>Not sure / need advice</option>
 </select>
     <div class="pair">
-      <div><label for="quote-postcode">Delivery postcode</label><input id="quote-postcode" name="postcode" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{4}" maxlength="4"></div>
+      <div><label for="quote-postcode">Project site postcode</label><input id="quote-postcode" name="postcode" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{4}" maxlength="4"></div>
       <div><label for="quote-dimensions">Approximate dimensions</label><input id="quote-dimensions" name="dimensions" placeholder="e.g. 6 m × 4 m"></div>
     </div>
-    <div data-roofing hidden>
+    <fieldset class="quote-fields" data-roofing hidden disabled>
+      <legend>Roofing details</legend>
+      <fieldset class="profile-options" aria-describedby="profile-hint">
+        <legend>Roof panel profile</legend>
+        <div class="profile-grid">
+          <label class="profile-card">
+            <img src="/assets/quote-profile-trim.webp" alt="Flat roof sections with raised trapezoidal ribs" width="484" height="220">
+            <input type="radio" name="roof_profile" value="DeltaTrim"> <span>DeltaTrim</span>
+          </label>
+          <label class="profile-card">
+            <img src="/assets/quote-profile-orb.webp" alt="Roof surface with rounded corrugations" width="484" height="227">
+            <input type="radio" name="roof_profile" value="DeltaOrb"> <span>DeltaOrb</span>
+          </label>
+        </div>
+        <label class="profile-card profile-unsure"><input type="radio" name="roof_profile" value="Unsure"> Unsure</label>
+        <p id="profile-hint" class="muted field-help">Profile illustrations by Delta Panels.</p>
+      </fieldset>
       <label for="quote-roofstyle">Roof style</label>
-      <select id="quote-roofstyle" name="roofstyle" disabled>
+      <select id="quote-roofstyle" name="roofstyle">
         <option value="">Select a style</option><option>Attached roof</option><option>Freestanding roof</option><option>Flyover roof</option><option>Not sure – need advice</option><option>Other</option>
       </select>
       <ul class="roof-styles" aria-label="Roof style illustrations">
@@ -100,13 +130,78 @@ a{color:#006d86}
         <li><svg viewBox="0 0 72 44" aria-hidden="true"><path d="m8 16 56 10M14 18v22m44-15v15"/></svg>Freestanding</li>
         <li><svg viewBox="0 0 72 44" aria-hidden="true"><path d="M6 40V22l12-9 13 9v18M13 8l51 8M23 10v7m36-2v25"/></svg>Flyover</li>
       </ul>
-    </div>
-    <div data-decking hidden>
+      <div class="pair">
+        <div>
+          <label for="quote-open-sides">How many sides are open?</label>
+          <select id="quote-open-sides" name="open_sides" aria-describedby="open-sides-hint">
+            <option value="">Select if known</option>
+            <option>3 or more sides open</option>
+            <option>2 sides open</option>
+            <option>1 side open</option>
+            <option>Fully enclosed</option>
+            <option>Unsure</option>
+          </select>
+          <p id="open-sides-hint" class="muted field-help">Include the house wall and any enclosed sides. Choose Unsure if a side is partly screened or enclosed.</p>
+        </div>
+        <div>
+          <label for="quote-support-layout">Panel support layout</label>
+          <select id="quote-support-layout" name="support_layout">
+            <option value="">Select if known</option>
+            <option>Single span (two supports)</option>
+            <option>Multiple spans (three or more supports)</option>
+            <option>Unsure</option>
+          </select>
+        </div>
+      </div>
+      <div class="pair">
+        <div>
+          <label for="quote-span">Span between supports (m)</label>
+          <input id="quote-span" name="panel_span_m" type="number" inputmode="decimal" min="0.01" step="any" placeholder="e.g. 3.6" aria-describedby="span-hint">
+        </div>
+        <div>
+          <label for="quote-panel-length">Total panel length (m)</label>
+          <input id="quote-panel-length" name="panel_length_m" type="number" inputmode="decimal" min="0.01" step="any" placeholder="e.g. 4.2">
+        </div>
+      </div>
+      <svg class="span-diagram" viewBox="0 0 260 67" aria-hidden="true">
+        <path d="M15 12h230M50 15v44m160-44v44M50 40h160m-153-5-7 5 7 5m146-10 7 5-7 5" stroke="currentColor" stroke-width="2" fill="none"/>
+        <text x="130" y="33" fill="currentColor" font-size="12" text-anchor="middle">Span between supports</text>
+      </svg>
+      <p id="span-hint" class="muted field-help">Enter the longest distance between adjacent supports, excluding overhang. Leave blank if unsure.</p>
+      <div class="pair">
+        <div><label for="quote-low-overhang">Overhang at gutter end (m)</label><input id="quote-low-overhang" name="gutter_overhang_m" type="number" inputmode="decimal" min="0" step="any"></div>
+        <div><label for="quote-high-overhang">Overhang at opposite end (m)</label><input id="quote-high-overhang" name="opposite_overhang_m" type="number" inputmode="decimal" min="0" step="any"></div>
+      </div>
+      <label for="quote-wind">Site wind class</label>
+      <select id="quote-wind" name="wind_class" aria-describedby="wind-hint">
+        <option value="">Select if known</option>
+        <option>Unsure</option>
+        <optgroup label="Non-cyclonic"><option>N1</option><option>N2</option><option>N3</option><option>N4</option><option>N5</option><option>N6</option></optgroup>
+        <optgroup label="Cyclonic"><option>C1</option><option>C2</option><option>C3</option><option>C4</option></optgroup>
+      </select>
+      <p id="wind-hint" class="muted field-help">Use the class shown on your plans if you know it. Otherwise, add your site postcode above and we can give an initial indication. Final wind class depends on site conditions.</p>
+      <div class="pair">
+        <div>
+          <label for="quote-roof-colour">Top-side roof colour</label>
+          <select id="quote-roof-colour" name="roof_colour">
+            <option value="">Select a preference</option><option>Unsure</option><option>Surfmist</option><option>Classic Cream</option><option>Paperbark</option><option>Basalt</option><option>Woodland Grey</option><option>Monument</option><option>Other (add to notes)</option>
+          </select>
+        </div>
+        <div>
+          <label for="quote-flashing-colour">Flashing colour</label>
+          <select id="quote-flashing-colour" name="flashing_colour">
+            <option value="">Select a preference</option><option>Unsure</option><option>Match roof colour</option><option>Surfmist</option><option>Classic Cream</option><option>Paperbark</option><option>Basalt</option><option>Woodland Grey</option><option>Monument</option><option>Other (add to notes)</option><option>Flashings not needed</option>
+          </select>
+        </div>
+      </div>
+      <p class="muted field-help">We’ll confirm colour availability and use the project details to review panel thickness.</p>
+    </fieldset>
+    <fieldset class="quote-fields" data-decking hidden disabled>
       <label for="quote-decktype">Decking project</label>
-      <select id="quote-decktype" name="decktype" disabled>
+      <select id="quote-decktype" name="decktype">
         <option value="">Select a project type</option><option>New deck</option><option>Replacing existing decking</option><option>Not sure – need advice</option>
       </select>
-    </div>
+    </fieldset>
     <label for="quote-files">Attach photos or plans (optional)</label>
     <input id="quote-files" name="files" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" multiple aria-describedby="quote-files-hint">
     <p id="quote-files-hint" class="muted">JPG, PNG or PDF. Up to 3 files, 2 MB total.</p>
