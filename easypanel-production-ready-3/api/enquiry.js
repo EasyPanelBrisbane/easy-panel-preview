@@ -25,6 +25,8 @@ export default async function handler(req, res) {
 
   const name = clean(data.name, 120), phone = clean(data.phone, 50), email = clean(data.email, 200), postcode = clean(data.postcode);
   const product = clean(data.product, 100), message = clean(data.message, 3000);
+  const enquiryLabel = data.enquiry_type === 'quick' ? 'Quick enquiry' :
+    data.enquiry_type === 'detailed' ? 'Detailed quote' : '';
   if (!phone && !email) return respond(res, 400, 'Enter a phone number or email address so we can get back to you.');
   if (email && !emailPattern.test(email)) return respond(res, 400, 'Please enter a valid email address.');
   if (postcode && !/^\d{4}$/.test(postcode)) return respond(res, 400, 'Please enter a four-digit delivery postcode.');
@@ -49,7 +51,7 @@ export default async function handler(req, res) {
   }
 
   const fields = {
-    Name: name, Phone: phone, Email: email, 'Delivery postcode': postcode, Product: product,
+    'Enquiry type': enquiryLabel, Name: name, Phone: phone, Email: email, 'Delivery postcode': postcode, Product: product,
     'Roof style': clean(data.roofstyle, 100), 'Decking project': clean(data.decktype, 100),
     Dimensions: clean(data.dimensions, 250), Message: message,
   };
@@ -67,7 +69,7 @@ export default async function handler(req, res) {
       headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: {
-          subject: ['Easy Panel enquiry', product, postcode].filter(Boolean).join(' - '),
+          subject: ['Easy Panel enquiry', enquiryLabel, product, postcode].filter(Boolean).join(' - '),
           body: { contentType: 'Text', content: text },
           toRecipients: [{ emailAddress: { address: mailbox } }],
           ...(email ? { replyTo: [{ emailAddress: { address: email, ...(name ? { name } : {}) } }] } : {}),
