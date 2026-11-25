@@ -36,9 +36,16 @@ a{color:#006d86}
 .status:not(:empty){margin-top:16px;font-weight:bold}
 .trap{position:absolute;left:-9999px}
 .details-quote{margin-top:24px;padding-top:16px;border-top:1px solid #dbe4e5}
-.roof-styles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:10px 0 0;padding:0;list-style:none;text-align:center}
-.roof-styles li{border:1px solid #dbe4e5;border-radius:6px;padding:6px 0;font-size:.8rem;overflow-wrap:anywhere}
-.roof-styles svg{width:64px;max-width:100%;height:36px;display:block;margin:auto;fill:none;stroke:#13778b;stroke-width:2;stroke-linejoin:round}
+.choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,105px),1fr));gap:8px;margin-top:8px}
+.choice-card{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:5px;padding:8px;margin:0;border:1px solid #aabfc4;border-radius:7px;font-size:.86rem;line-height:1.2;overflow-wrap:anywhere;cursor:pointer}
+.choice-card input{width:auto;margin:0;accent-color:#13778b}
+.choice-card:has(input:checked){border-color:#13778b;background:#edf7f8}
+.choice-card:has(input:focus-visible){outline:2px solid #006d86;outline-offset:2px}
+.choice-card svg,.colour-chip{grid-column:1/-1;display:block}
+.choice-card svg{width:72px;max-width:100%;height:40px;margin:auto;fill:none;stroke:#13778b;stroke-width:2;stroke-linejoin:round}
+.colour-chip{width:100%;height:24px;border:1px solid #53636966;border-radius:3px;background:var(--swatch)}
+.more-colours{margin-top:10px}
+.more-colours summary{cursor:pointer;color:#006d86;font-weight:700;padding:6px 0}
 
 .quote-fields,.profile-options{min-width:0;border:0;padding:0;margin:18px 0 0}
 .quote-fields>legend,.profile-options>legend{font-weight:700;padding:0}
@@ -121,15 +128,17 @@ a{color:#006d86}
         <label class="profile-card profile-unsure"><input type="radio" name="roof_profile" value="Unsure"> Unsure</label>
         <p id="profile-hint" class="muted field-help">Profile illustrations by Delta Panels.</p>
       </fieldset>
-      <label for="quote-roofstyle">Roof style</label>
-      <select id="quote-roofstyle" name="roofstyle">
-        <option value="">Select a style</option><option>Attached roof</option><option>Freestanding roof</option><option>Flyover roof</option><option>Not sure – need advice</option><option>Other</option>
-      </select>
-      <ul class="roof-styles" aria-label="Roof style illustrations">
-        <li><svg viewBox="0 0 72 44" aria-hidden="true"><path d="M6 40V19L18 8l13 11v21M9 39h20m2-17 33 8m-5-1v11"/></svg>Attached</li>
-        <li><svg viewBox="0 0 72 44" aria-hidden="true"><path d="m8 16 56 10M14 18v22m44-15v15"/></svg>Freestanding</li>
-        <li><svg viewBox="0 0 72 44" aria-hidden="true"><path d="M6 40V22l12-9 13 9v18M13 8l51 8M23 10v7m36-2v25"/></svg>Flyover</li>
-      </ul>
+      <fieldset class="profile-options">
+        <legend>Roof style</legend>
+        <div class="choice-grid">
+          <label class="choice-card"><svg viewBox="0 0 72 44" aria-hidden="true"><path d="M6 40V19L18 8l13 11v21M9 39h20m2-17 33 8m-5-1v11"/></svg><input type="radio" name="roofstyle" value="Attached roof"> <span>Attached roof</span></label>
+          <label class="choice-card"><svg viewBox="0 0 72 44" aria-hidden="true"><path d="m8 16 56 10M14 18v22m44-15v15"/></svg><input type="radio" name="roofstyle" value="Freestanding roof"> <span>Freestanding roof</span></label>
+          <label class="choice-card"><svg viewBox="0 0 72 44" aria-hidden="true"><path d="M6 40V22l12-9 13 9v18M13 8l51 8M23 10v7m36-2v25"/></svg><input type="radio" name="roofstyle" value="Flyover roof"> <span>Flyover roof</span></label>
+          <label class="choice-card"><svg viewBox="0 0 72 44" aria-hidden="true"><path d="M5 25 36 8l31 17M12 22v18m48-18v18"/></svg><input type="radio" name="roofstyle" value="Gable roof"> <span>Gable roof</span></label>
+          <label class="choice-card"><input type="radio" name="roofstyle" value="Unsure"> <span>Unsure</span></label>
+          <label class="choice-card"><input type="radio" name="roofstyle" value="Other"> <span>Other</span></label>
+        </div>
+      </fieldset>
       <div class="pair">
         <div>
           <label for="quote-open-sides">How many sides are open?</label>
@@ -144,18 +153,18 @@ a{color:#006d86}
           <p id="open-sides-hint" class="muted field-help">Include the house wall and any enclosed sides. Choose Unsure if a side is partly screened or enclosed.</p>
         </div>
         <div>
-          <label for="quote-support-layout">Panel support layout</label>
+          <label for="quote-support-layout">Roof panel layout</label>
           <select id="quote-support-layout" name="support_layout">
             <option value="">Select if known</option>
-            <option>Single span (two supports)</option>
-            <option>Multiple spans (three or more supports)</option>
+            <option>Single span (two fixing points)</option>
+            <option>Multiple spans (three or more fixing points)</option>
             <option>Unsure</option>
           </select>
         </div>
       </div>
       <div class="pair">
         <div>
-          <label for="quote-span">Span between supports (m)</label>
+          <label for="quote-span">Span between beams (m)</label>
           <input id="quote-span" name="panel_span_m" type="number" inputmode="decimal" min="0.01" step="any" placeholder="e.g. 3.6" aria-describedby="span-hint">
         </div>
         <div>
@@ -165,9 +174,9 @@ a{color:#006d86}
       </div>
       <svg class="span-diagram" viewBox="0 0 260 67" aria-hidden="true">
         <path d="M15 12h230M50 15v44m160-44v44M50 40h160m-153-5-7 5 7 5m146-10 7 5-7 5" stroke="currentColor" stroke-width="2" fill="none"/>
-        <text x="130" y="33" fill="currentColor" font-size="12" text-anchor="middle">Span between supports</text>
+        <text x="130" y="33" fill="currentColor" font-size="12" text-anchor="middle">Span between beams</text>
       </svg>
-      <p id="span-hint" class="muted field-help">Enter the longest distance between adjacent supports, excluding overhang. Leave blank if unsure.</p>
+      <p id="span-hint" class="muted field-help">Enter the longest distance between adjacent beams, excluding overhang. For an attached roof with a receiver channel, measure from the channel to the next beam. Leave blank if unsure.</p>
       <div class="pair">
         <div><label for="quote-low-overhang">Overhang at gutter end (m)</label><input id="quote-low-overhang" name="gutter_overhang_m" type="number" inputmode="decimal" min="0" step="any"></div>
         <div><label for="quote-high-overhang">Overhang at opposite end (m)</label><input id="quote-high-overhang" name="opposite_overhang_m" type="number" inputmode="decimal" min="0" step="any"></div>
@@ -180,21 +189,80 @@ a{color:#006d86}
         <optgroup label="Cyclonic"><option>C1</option><option>C2</option><option>C3</option><option>C4</option></optgroup>
       </select>
       <p id="wind-hint" class="muted field-help">Use the class shown on your plans if you know it. Otherwise, add your site postcode above and we can give an initial indication. Final wind class depends on site conditions.</p>
+      <fieldset class="profile-options" aria-describedby="colour-hint">
+        <legend>Top-side roof colour</legend>
+        <div class="choice-grid">
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#f3ede9" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Surfmist"> <span>Surfmist</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#f9e8d0" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Classic Cream"> <span>Classic Cream</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#e4d1ba" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Paperbark"> <span>Paperbark</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#656669" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Basalt"> <span>Basalt</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#4e5650" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Woodland Grey"> <span>Woodland Grey</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#2d2e32" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Monument"> <span>Monument</span></label>
+          <label class="choice-card"><input type="radio" name="roof_colour" value="Unsure"> <span>Unsure</span></label>
+          <label class="choice-card"><input type="radio" name="roof_colour" value="Other (add to notes)"> <span>Other (add to notes)</span></label>
+        </div>
+        <details class="more-colours">
+          <summary>More roof colours (UniCote)</summary>
+          <div class="choice-grid">
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#ffffff" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Hamptons White"> <span>Hamptons White</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#f3ede9" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Off White"> <span>Off White</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#f9e8d0" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Smooth Cream"> <span>Smooth Cream</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#d6d5d2" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Gull Grey"> <span>Gull Grey</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#e4d1ba" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Merino"> <span>Merino</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#656669" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Basal"> <span>Basal</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#bab5b4" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Birch"> <span>Birch</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#8fa48d" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Mist Green"> <span>Mist Green</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#8e979d" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Armour Grey"> <span>Armour Grey</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#847973" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Jasmin Brown"> <span>Jasmin Brown</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#4e5650" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Slate Grey"> <span>Slate Grey</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#495a6a" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Iron Grey"> <span>Iron Grey</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#7a2000" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Heritage Red"> <span>Heritage Red</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#1e6149" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Caufield Green"> <span>Caufield Green</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#2d2e32" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Monolith"> <span>Monolith</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#004158" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Mountain Blue"> <span>Mountain Blue</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#b3bcbd" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Zinc"> <span>Zinc</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#7c7b79" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Wallaroo"> <span>Wallaroo</span></label>
+          </div>
+        </details>
+      </fieldset>
+      <fieldset class="profile-options" aria-describedby="colour-hint">
+        <legend>Flashing colour</legend>
+        <div class="choice-grid">
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#f3ede9" aria-hidden="true"></span><input type="radio" name="flashing_colour" value="Surfmist"> <span>Surfmist</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#f9e8d0" aria-hidden="true"></span><input type="radio" name="flashing_colour" value="Classic Cream"> <span>Classic Cream</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#e4d1ba" aria-hidden="true"></span><input type="radio" name="flashing_colour" value="Paperbark"> <span>Paperbark</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#656669" aria-hidden="true"></span><input type="radio" name="flashing_colour" value="Basalt"> <span>Basalt</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#4e5650" aria-hidden="true"></span><input type="radio" name="flashing_colour" value="Woodland Grey"> <span>Woodland Grey</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#2d2e32" aria-hidden="true"></span><input type="radio" name="flashing_colour" value="Monument"> <span>Monument</span></label>
+          <label class="choice-card"><input type="radio" name="flashing_colour" value="Match roof colour"> <span>Match roof colour</span></label>
+          <label class="choice-card"><input type="radio" name="flashing_colour" value="Unsure"> <span>Unsure</span></label>
+          <label class="choice-card"><input type="radio" name="flashing_colour" value="Other (add to notes)"> <span>Other (add to notes)</span></label>
+          <label class="choice-card"><input type="radio" name="flashing_colour" value="Flashings not needed"> <span>Flashings not needed</span></label>
+        </div>
+      </fieldset>
+      <p id="colour-hint" class="muted field-help">Swatches are indicative. We’ll confirm colour availability when we quote.</p>
       <div class="pair">
         <div>
-          <label for="quote-roof-colour">Top-side roof colour</label>
-          <select id="quote-roof-colour" name="roof_colour">
-            <option value="">Select a preference</option><option>Unsure</option><option>Surfmist</option><option>Classic Cream</option><option>Paperbark</option><option>Basalt</option><option>Woodland Grey</option><option>Monument</option><option>Other (add to notes)</option>
+          <label for="quote-post-size">Post size</label>
+          <select id="quote-post-size" name="post_size">
+            <option value="">Select if known</option>
+            <option>65 × 65 mm</option>
+            <option>100 × 100 mm</option>
+            <option>Posts not needed</option>
+            <option>Unsure</option>
           </select>
         </div>
         <div>
-          <label for="quote-flashing-colour">Flashing colour</label>
-          <select id="quote-flashing-colour" name="flashing_colour">
-            <option value="">Select a preference</option><option>Unsure</option><option>Match roof colour</option><option>Surfmist</option><option>Classic Cream</option><option>Paperbark</option><option>Basalt</option><option>Woodland Grey</option><option>Monument</option><option>Other (add to notes)</option><option>Flashings not needed</option>
+          <label for="quote-post-mount">Post mounting</label>
+          <select id="quote-post-mount" name="post_mount">
+            <option value="">Select if known</option>
+            <option>In-ground</option>
+            <option>Surface-mounted</option>
+            <option>Unsure</option>
           </select>
         </div>
       </div>
-      <p class="muted field-help">We’ll confirm colour availability and use the project details to review panel thickness.</p>
+      <p class="muted field-help">We’ll use the project details to review panel thickness.</p>
     </fieldset>
     <fieldset class="quote-fields" data-decking hidden disabled>
       <label for="quote-decktype">Decking project</label>

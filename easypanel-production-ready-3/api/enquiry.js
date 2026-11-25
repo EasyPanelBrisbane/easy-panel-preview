@@ -61,8 +61,8 @@ export default async function handler(req, res) {
     Dimensions: clean(data.dimensions, 250),
     'Roof panel profile': clean(data.roof_profile, 80),
     'Open sides': clean(data.open_sides, 80),
-    'Panel support layout': clean(data.support_layout, 100),
-    'Span between supports (m)': clean(data.panel_span_m, 30),
+    'Roof panel layout': clean(data.support_layout, 100),
+    'Span between beams (m)': clean(data.panel_span_m, 30),
     'Total panel length (m)': clean(data.panel_length_m, 30),
     'Gutter-end overhang (m)': clean(data.gutter_overhang_m, 30),
     'Opposite-end overhang (m)': clean(data.opposite_overhang_m, 30),
@@ -70,6 +70,8 @@ export default async function handler(req, res) {
     'Wind class follow-up': windReview,
     'Top-side roof colour': clean(data.roof_colour, 80),
     'Flashing colour': clean(data.flashing_colour, 80),
+    'Post size': clean(data.post_size, 80),
+    'Post mounting': clean(data.post_mount, 80),
     Message: message,
   };
   const text = Object.entries(fields).filter(([, value]) => value).map(([key, value]) => `${key}: ${value}`).join('\n');
