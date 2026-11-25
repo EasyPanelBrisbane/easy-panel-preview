@@ -34,16 +34,36 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
   const status = form.querySelector('.status');
   const submit = form.querySelector('button[type="submit"]');
 
+  const roofing = form.querySelector('[data-roofing]');
+  const decking = form.querySelector('[data-decking]');
+  const generalDimensions = form.querySelector('[data-general-dimensions]');
+  const dimensionsLabel = generalDimensions?.querySelector('label');
+  const dimensionsInput = generalDimensions?.querySelector('input');
+
   function updateProjectFields() {
+    if (!roofing) return;
+
+    const interest = product.value;
+    const insulated = interest === 'Insulated roofing panels' || interest === 'Roofing and decking';
+    const singleSkin = interest === 'Single-skin roofing (DeltaSingle)';
+    const hasDecking = interest === 'Composite decking' || interest === 'Roofing and decking';
     const sections = [
-      [form.querySelector('[data-roofing]'), ['Insulated roofing panels', 'Roofing and decking', 'Roofing accessories']],
-      [form.querySelector('[data-decking]'), ['Composite decking', 'Roofing and decking']],
+      [roofing, insulated || singleSkin || interest === 'Roofing accessories'],
+      [decking, hasDecking],
+      [roofing.querySelector('[data-insulated-measurements]'), insulated],
+      [roofing.querySelector('[data-single-skin-only]'), singleSkin],
     ];
-    for (const [section, products] of sections) {
-      if (!section) continue;
-      section.hidden = !products.includes(product.value);
-      section.disabled = section.hidden;
+    for (const section of roofing.querySelectorAll('[data-insulated-only]')) {
+      sections.push([section, !singleSkin]);
     }
+    for (const [section, visible] of sections) {
+      section.hidden = !visible;
+      section.disabled = !visible;
+    }
+    const showGeneralDimensions = hasDecking || (!insulated && !singleSkin);
+    generalDimensions.hidden = !showGeneralDimensions;
+    dimensionsInput.disabled = !showGeneralDimensions;
+    dimensionsLabel.textContent = hasDecking ? 'Approximate decking dimensions' : 'Approximate dimensions';
   }
 
   product.addEventListener('change', updateProjectFields);

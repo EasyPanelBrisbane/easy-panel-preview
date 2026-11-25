@@ -51,7 +51,12 @@ export default async function handler(req, res) {
   }
 
   const windClass = clean(data.wind_class, 30);
-  const roofDetails = ['Insulated roofing panels', 'Roofing and decking', 'Roofing accessories'].includes(product);
+  const singleSkin = product === 'Single-skin roofing (DeltaSingle)';
+  const roofDetails = singleSkin || ['Insulated roofing panels', 'Roofing and decking', 'Roofing accessories'].includes(product);
+  const count = clean(singleSkin ? data.sheet_count : data.panel_count, 30);
+  if (count && (!Number.isSafeInteger(Number(count)) || Number(count) < 1)) {
+    return respond(res, 400, 'Enter a whole number of panels or sheets.');
+  }
   const windReview = enquiryLabel === 'Detailed quote' && roofDetails && postcode && (!windClass || windClass === 'Unsure')
     ? 'Use the site postcode for an initial indication and confirm the site wind class.'
     : '';
@@ -59,11 +64,12 @@ export default async function handler(req, res) {
     'Enquiry type': enquiryLabel, Name: name, Phone: phone, Email: email, [enquiryLabel === 'Detailed quote' ? 'Project site postcode' : 'Delivery postcode']: postcode, Product: product,
     'Roof style': clean(data.roofstyle, 100), 'Decking project': clean(data.decktype, 100),
     Dimensions: clean(data.dimensions, 250),
-    'Roof panel profile': clean(data.roof_profile, 80),
+    'Roof panel profile': singleSkin ? 'DeltaSingle' : clean(data.roof_profile, 80),
     'Open sides': clean(data.open_sides, 80),
     'Roof panel layout': clean(data.support_layout, 100),
     'Span between beams (m)': clean(data.panel_span_m, 30),
-    'Total panel length (m)': clean(data.panel_length_m, 30),
+    [singleSkin ? 'Length of sheet (m)' : 'Length of panel (m)']: clean(singleSkin ? data.sheet_length_m : data.panel_length_m, 30),
+    [singleSkin ? 'Width (number of 300 mm sheets)' : 'Width (number of 1 m panels)']: count ? String(Number(count)) : '',
     'Gutter-end overhang (m)': clean(data.gutter_overhang_m, 30),
     'Opposite-end overhang (m)': clean(data.opposite_overhang_m, 30),
     'Site wind class (customer supplied)': windClass,

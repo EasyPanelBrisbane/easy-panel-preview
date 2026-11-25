@@ -75,6 +75,7 @@ a{color:#006d86}
 <select id="quick-product" name="product">
   <option value="">Select a product</option>
   <option>Insulated roofing panels</option>
+  <option>Single-skin roofing (DeltaSingle)</option>
   <option>Composite decking</option>
   <option>Roofing and decking</option>
   <option>Roofing accessories</option>
@@ -102,6 +103,7 @@ a{color:#006d86}
 <select id="quote-product" name="product">
   <option value="">Select a product</option>
   <option>Insulated roofing panels</option>
+  <option>Single-skin roofing (DeltaSingle)</option>
   <option>Composite decking</option>
   <option>Roofing and decking</option>
   <option>Roofing accessories</option>
@@ -109,11 +111,11 @@ a{color:#006d86}
 </select>
     <div class="pair">
       <div><label for="quote-postcode">Project site postcode</label><input id="quote-postcode" name="postcode" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{4}" maxlength="4"></div>
-      <div><label for="quote-dimensions">Approximate dimensions</label><input id="quote-dimensions" name="dimensions" placeholder="e.g. 6 m × 4 m"></div>
+      <div data-general-dimensions><label for="quote-dimensions">Approximate dimensions</label><input id="quote-dimensions" name="dimensions" placeholder="e.g. 6 m × 4 m"></div>
     </div>
     <fieldset class="quote-fields" data-roofing hidden disabled>
       <legend>Roofing details</legend>
-      <fieldset class="profile-options" aria-describedby="profile-hint">
+      <fieldset class="profile-options" data-insulated-only aria-describedby="profile-hint">
         <legend>Roof panel profile</legend>
         <div class="profile-grid">
           <label class="profile-card">
@@ -162,16 +164,41 @@ a{color:#006d86}
           </select>
         </div>
       </div>
-      <div class="pair">
-        <div>
-          <label for="quote-span">Span between beams (m)</label>
-          <input id="quote-span" name="panel_span_m" type="number" inputmode="decimal" min="0.01" step="any" placeholder="e.g. 3.6" aria-describedby="span-hint">
+      <fieldset class="profile-options" data-insulated-measurements>
+        <legend>Insulated panel measurements</legend>
+        <div class="pair">
+          <div>
+            <label for="quote-panel-length">Length of panel (m)</label>
+            <input id="quote-panel-length" name="panel_length_m" type="number" inputmode="decimal" min="0.01" step="any" placeholder="e.g. 4.2">
+          </div>
+          <div>
+            <label for="quote-panel-count">Width (number of panels)</label>
+            <input id="quote-panel-count" name="panel_count" type="number" inputmode="numeric" min="1" step="1" placeholder="e.g. 6" aria-describedby="panel-count-hint">
+            <p id="panel-count-hint" class="muted field-help">Each panel covers 1 m of roof width. For example, 6 panels cover 6 m.</p>
+          </div>
         </div>
-        <div>
-          <label for="quote-panel-length">Total panel length (m)</label>
-          <input id="quote-panel-length" name="panel_length_m" type="number" inputmode="decimal" min="0.01" step="any" placeholder="e.g. 4.2">
+      </fieldset>
+      <fieldset class="profile-options" data-single-skin-only hidden disabled>
+        <legend>DeltaSingle sheet measurements</legend>
+        <div class="pair">
+          <div>
+            <label for="quote-sheet-length">Length of sheet (m)</label>
+            <input id="quote-sheet-length" name="sheet_length_m" type="number" inputmode="decimal" min="0.01" step="any" placeholder="e.g. 4.2">
+          </div>
+          <div>
+            <label for="quote-sheet-count">Width (number of sheets)</label>
+            <input id="quote-sheet-count" name="sheet_count" type="number" inputmode="numeric" min="1" step="1" placeholder="e.g. 20" aria-describedby="sheet-count-hint">
+            <p id="sheet-count-hint" class="muted field-help">Each DeltaSingle sheet covers 300 mm of roof width. For example, 20 sheets cover 6 m.</p>
+          </div>
         </div>
-      </div>
+        <label for="quote-single-skin-colour">Top-side roof colour</label>
+        <select id="quote-single-skin-colour" name="roof_colour">
+          <option value="">Select a preference</option><option>Off White</option><option>Smooth Cream</option><option>Other (add to notes)</option><option>Unsure</option>
+        </select>
+        <p class="muted field-help">We’ll confirm colour availability when we quote.</p>
+      </fieldset>
+      <label for="quote-span">Span between beams (m)</label>
+      <input id="quote-span" name="panel_span_m" type="number" inputmode="decimal" min="0.01" step="any" placeholder="e.g. 3.6" aria-describedby="span-hint">
       <svg class="span-diagram" viewBox="0 0 260 67" aria-hidden="true">
         <path d="M15 12h230M50 15v44m160-44v44M50 40h160m-153-5-7 5 7 5m146-10 7 5-7 5" stroke="currentColor" stroke-width="2" fill="none"/>
         <text x="130" y="33" fill="currentColor" font-size="12" text-anchor="middle">Span between beams</text>
@@ -189,7 +216,7 @@ a{color:#006d86}
         <optgroup label="Cyclonic"><option>C1</option><option>C2</option><option>C3</option><option>C4</option></optgroup>
       </select>
       <p id="wind-hint" class="muted field-help">Use the class shown on your plans if you know it. Otherwise, add your site postcode above and we can give an initial indication. Final wind class depends on site conditions.</p>
-      <fieldset class="profile-options" aria-describedby="colour-hint">
+      <fieldset class="profile-options" data-insulated-only aria-describedby="colour-hint">
         <legend>Top-side roof colour</legend>
         <div class="choice-grid">
           <label class="choice-card"><span class="colour-chip" style="--swatch:#f3ede9" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Surfmist"> <span>Surfmist</span></label>
@@ -262,7 +289,7 @@ a{color:#006d86}
           </select>
         </div>
       </div>
-      <p class="muted field-help">We’ll use the project details to review panel thickness.</p>
+      <p class="muted field-help">We’ll use the project details to review your roofing requirements.</p>
     </fieldset>
     <fieldset class="quote-fields" data-decking hidden disabled>
       <label for="quote-decktype">Decking project</label>
