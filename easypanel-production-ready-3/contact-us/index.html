@@ -44,6 +44,7 @@ a{color:#006d86}
 .choice-card svg,.colour-chip{grid-column:1/-1;display:block}
 .choice-card svg{width:72px;max-width:100%;height:40px;margin:auto;fill:none;stroke:#13778b;stroke-width:2;stroke-linejoin:round}
 .colour-chip{width:100%;height:24px;border:1px solid #53636966;border-radius:3px;background:var(--swatch)}
+.decking-chip{width:100%;aspect-ratio:10/3;display:block;grid-column:1/-1;border-radius:3px;background:url("/assets/decking-colour-swatches.webp") 0 var(--chip-position)/100% 300% no-repeat}
 .more-colours{margin-top:10px}
 .more-colours summary{cursor:pointer;color:#006d86;font-weight:700;padding:6px 0}
 
@@ -296,6 +297,16 @@ a{color:#006d86}
       <select id="quote-decktype" name="decktype">
         <option value="">Select a project type</option><option>New deck</option><option>Replacing existing decking</option><option>Not sure – need advice</option>
       </select>
+      <fieldset class="profile-options" aria-describedby="deck-colour-hint">
+        <legend>Decking colour</legend>
+        <div class="choice-grid">
+          <label class="choice-card"><span class="decking-chip" style="--chip-position:0%" aria-hidden="true"></span><input type="radio" name="deck_colour" value="Charcoal"> <span>Charcoal</span></label>
+          <label class="choice-card"><span class="decking-chip" style="--chip-position:50%" aria-hidden="true"></span><input type="radio" name="deck_colour" value="Mocha"> <span>Mocha</span></label>
+          <label class="choice-card"><span class="decking-chip" style="--chip-position:100%" aria-hidden="true"></span><input type="radio" name="deck_colour" value="Light Grey"> <span>Light Grey</span></label>
+          <label class="choice-card"><input type="radio" name="deck_colour" value="Unsure"> <span>Unsure</span></label>
+        </div>
+        <p id="deck-colour-hint" class="muted field-help">Shown from our showroom boards. Colours may vary on screen.</p>
+      </fieldset>
     </fieldset>
     <label for="quote-files">Attach photos or plans (optional)</label>
     <input id="quote-files" name="files" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" multiple aria-describedby="quote-files-hint">

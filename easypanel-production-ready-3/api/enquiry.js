@@ -63,6 +63,7 @@ export default async function handler(req, res) {
   const fields = {
     'Enquiry type': enquiryLabel, Name: name, Phone: phone, Email: email, [enquiryLabel === 'Detailed quote' ? 'Project site postcode' : 'Delivery postcode']: postcode, Product: product,
     'Roof style': clean(data.roofstyle, 100), 'Decking project': clean(data.decktype, 100),
+    'Decking colour': clean(data.deck_colour, 50),
     Dimensions: clean(data.dimensions, 250),
     'Roof panel profile': singleSkin ? 'DeltaSingle' : clean(data.roof_profile, 80),
     'Open sides': clean(data.open_sides, 80),
