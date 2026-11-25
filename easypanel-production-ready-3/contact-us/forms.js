@@ -5,6 +5,17 @@ const contactError = 'Enter a phone number or email address so we can get back t
 const deliveryError = 'Unable to send your enquiry. Please call (07) 3299 5541 or email admin@easypanel.com.au.';
 const pageOpenedAt = Date.now();
 
+const quoteToggle = document.getElementById('quote-toggle');
+const quotePanel = document.getElementById('quote-panel');
+const quoteHeading = document.getElementById('quote-heading');
+
+quoteToggle.addEventListener('click', () => {
+  const expanded = quotePanel.hidden;
+  quotePanel.hidden = !expanded;
+  quoteToggle.setAttribute('aria-expanded', String(expanded));
+  if (expanded) quoteHeading.focus();
+});
+
 function readAttachment(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

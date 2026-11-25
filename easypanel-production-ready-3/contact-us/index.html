@@ -27,8 +27,11 @@ textarea{min-height:84px;resize:vertical}
 .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 14px}
 .button{background:#13778b;color:white;border:0;padding:14px 20px;border-radius:7px;font:inherit;font-weight:bold;cursor:pointer;margin-top:15px}
 .button:disabled{opacity:.75;cursor:wait}
-a,summary{color:#006d86}
-summary{cursor:pointer;font-weight:700;padding:8px 0}
+.enquiry-actions{display:inline-grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-width:100%;margin-top:15px}
+.enquiry-actions .button{margin-top:0;padding:13px clamp(8px,2vw,20px);overflow-wrap:anywhere}
+.button-secondary{background:#fff;color:#006d86;box-shadow:inset 0 0 0 1px #13778b}
+.button-secondary:hover,.button-secondary[aria-expanded="true"]{background:#edf7f8}
+a{color:#006d86}
 .muted{color:#52666d;font-size:14px}
 .status:not(:empty){margin-top:16px;font-weight:bold}
 .trap{position:absolute;left:-9999px}
@@ -58,11 +61,14 @@ summary{cursor:pointer;font-weight:700;padding:8px 0}
 </select>
   <label for="quick-message">Message (optional)</label><textarea id="quick-message" name="message"></textarea>
   <div class="trap" aria-hidden="true"><label for="quick-website">Leave this blank</label><input id="quick-website" name="website" tabindex="-1" autocomplete="off"></div>
-<button class="button" type="submit">Send enquiry</button>
+<div class="enquiry-actions">
+  <button class="button" type="submit">Send enquiry</button>
+  <button class="button button-secondary" id="quote-toggle" type="button" aria-expanded="false" aria-controls="quote-panel">Detailed quote</button>
+</div>
 <div class="status" role="status"></div>
 </form>
-<details class="details-quote">
-  <summary>Have plans or measurements? Request a detailed quote</summary>
+<section id="quote-panel" class="details-quote" aria-labelledby="quote-heading" hidden>
+  <h2 id="quote-heading" tabindex="-1">Detailed quote</h2>
   <p id="quote-hint">Enter a phone number or email, then share any project details you have. Everything else is optional.</p>
   <form id="detailed-quote" method="post" action="/api/enquiry" data-enquiry>
     <input type="hidden" name="enquiry_type" value="detailed">
@@ -109,6 +115,6 @@ summary{cursor:pointer;font-weight:700;padding:8px 0}
 <button class="button" type="submit">Request a quote</button>
 <div class="status" role="status"></div>
   </form>
-</details>
+</section>
 </section>
 <section class="panel office-panel"><h2>Visit our showroom &amp; office</h2><p><strong>Easy Panel</strong><br>Unit 1, 8–12 Neville Street<br>Underwood QLD 4119<br>Australia</p><p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Unit+1%2C+8-12+Neville+Street%2C+Underwood+QLD+4119">Get directions on Google Maps</a></p><h3>Opening hours</h3><p>Monday–Friday: 8:00 am – 4:00 pm<br>Saturday–Sunday: Closed</p><h3>Contact details</h3><p>Phone: <a href="tel:+61732995541">(07) 3299 5541</a><br>Email: <a href="mailto:admin@easypanel.com.au">admin@easypanel.com.au</a></p><p class="muted">We can deliver throughout Australia. Our team can discuss product suitability and delivery options for your project.</p></section></div></main><footer style="padding:24px;text-align:center;background:#123a46;color:white">Easy Panel · (07) 3299 5541 · <a style="color:white" href="mailto:admin@easypanel.com.au">admin@easypanel.com.au</a></footer><script defer src="/contact-us/forms.js"></script></body></html>
