@@ -41,7 +41,7 @@
   .contact-content{padding:24px 16px 36px}
 }
 h2{margin-top:0}
-.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);grid-template-areas:"office enquiry";gap:24px;align-items:start}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);grid-template-areas:"office enquiry";gap:24px;align-items:start}
 .enquiry-panel{grid-area:enquiry}
 .office-panel{grid-area:office}
 .panel{background:white;border:1px solid #dbe4e5;border-radius:12px;padding:26px;box-shadow:0 4px 16px #123a4610}
@@ -62,6 +62,12 @@ a{color:#006d86}
 .details-quote{margin-top:24px;padding-top:16px;border-top:1px solid #dbe4e5}
 .choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,105px),1fr));gap:8px;margin-top:8px}
 .choice-card{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:5px;padding:8px;margin:0;border:1px solid #aabfc4;border-radius:7px;font-size:.86rem;line-height:1.2;overflow-wrap:anywhere;cursor:pointer}
+.roof-style-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+.roof-style-grid .choice-card{position:relative;grid-template-columns:minmax(0,1fr);padding-inline:6px;text-align:center;overflow-wrap:normal}
+.roof-style-grid input{position:absolute;top:8px;left:8px}
+.roof-style-alternatives{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+@media(min-width:1020px){.roof-style-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:335px){.roof-style-grid{grid-template-columns:minmax(0,1fr)}}
 .choice-card[hidden]{display:none}
 .accessory-photo{display:block;grid-column:1/-1;width:100%;aspect-ratio:5/3;object-fit:cover;border-radius:4px}
 .choice-card input{width:auto;margin:0;accent-color:#13778b}
@@ -172,11 +178,13 @@ a{color:#006d86}
       </fieldset>
       <fieldset class="profile-options" data-roof-style-options>
         <legend>Roof style</legend>
-        <div class="choice-grid">
+        <div class="roof-style-grid">
           <label class="choice-card"><svg viewBox="0 0 72 44" aria-hidden="true"><path d="M6 40V19L18 8l13 11v21M9 39h20m2-17 33 8m-5-1v11"/></svg><input type="radio" name="roofstyle" value="Attached roof"> <span>Attached roof</span></label>
           <label class="choice-card"><svg viewBox="0 0 72 44" aria-hidden="true"><path d="m8 16 56 10M14 18v22m44-15v15"/></svg><input type="radio" name="roofstyle" value="Freestanding roof"> <span>Freestanding roof</span></label>
           <label class="choice-card"><svg viewBox="0 0 72 44" aria-hidden="true"><path d="M6 40V22l12-9 13 9v18M13 8l51 8M23 10v7m36-2v25"/></svg><input type="radio" name="roofstyle" value="Flyover roof"> <span>Flyover roof</span></label>
           <label class="choice-card"><svg viewBox="0 0 72 44" aria-hidden="true"><path d="M5 25 36 8l31 17M12 22v18m48-18v18"/></svg><input type="radio" name="roofstyle" value="Gable roof"> <span>Gable roof</span></label>
+        </div>
+        <div class="roof-style-alternatives">
           <label class="choice-card"><input type="radio" name="roofstyle" value="Unsure"> <span>Unsure</span></label>
           <label class="choice-card"><input type="radio" name="roofstyle" value="Other"> <span>Other</span></label>
         </div>
