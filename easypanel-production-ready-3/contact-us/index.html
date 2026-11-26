@@ -168,15 +168,15 @@ a{color:#006d86}
         <div class="profile-grid">
           <label class="profile-card">
             <img src="/assets/quote-profile-trim.webp" alt="Flat roof sections with raised trapezoidal ribs" width="484" height="220">
-            <input type="radio" name="roof_profile" value="DeltaTrim"> <span>DeltaTrim</span>
+            <input type="radio" name="roof_profile" value="DeltaTrim"> <span>DeltaTrim<br><small>2° minimum pitch</small></span>
           </label>
           <label class="profile-card">
             <img src="/assets/quote-profile-orb.webp" alt="Roof surface with rounded corrugations" width="484" height="227">
-            <input type="radio" name="roof_profile" value="DeltaOrb"> <span>DeltaOrb</span>
+            <input type="radio" name="roof_profile" value="DeltaOrb"> <span>DeltaOrb<br><small>3° minimum pitch for Class 10</small></span>
           </label>
         </div>
         <label class="profile-card profile-unsure"><input type="radio" name="roof_profile" value="Unsure"> Unsure</label>
-        <p id="profile-hint" class="muted field-help">Profile illustrations by Delta Panels.</p>
+        <p id="profile-hint" class="muted field-help">DeltaTrimCorro and DeltaCorroCorro have a 3° minimum pitch. We’ll confirm the applicable pitch for your building class. Profile illustrations by Delta Panels.</p>
       </fieldset>
       <fieldset class="profile-options" data-roof-style-options>
         <legend>Roof style</legend>
@@ -285,7 +285,7 @@ a{color:#006d86}
           <label class="choice-card"><input type="radio" name="roof_colour" value="Other colour (add to notes)"> <span>Other colour (add to notes)</span></label>
         </div>
         <details class="additional-colours">
-          <summary>More roof colours for DeltaTrim and DeltaOrb</summary>
+          <summary>UniCote® roof colours for DeltaTrim and DeltaOrb</summary>
           <div class="choice-grid">
           <label class="choice-card"><span class="colour-chip" style="--swatch:#ffffff" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Hamptons White"> <span>Hamptons White</span></label>
           <label class="choice-card"><span class="colour-chip" style="--swatch:#f1eae5" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Off White"> <span>Off White</span></label>
@@ -308,6 +308,29 @@ a{color:#006d86}
           </div>
         </details>
       </fieldset>
+      <fieldset class="profile-options" data-insulated-only aria-describedby="colour-hint">
+        <legend>Ceiling colour or finish</legend>
+        <div class="choice-grid">
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#f3ede9" aria-hidden="true"></span><input type="radio" name="ceiling_colour" value="Surfmist"> <span>Surfmist</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#ffffff" aria-hidden="true"></span><input type="radio" name="ceiling_colour" value="Hamptons White"> <span>Hamptons White</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#f1eae5" aria-hidden="true"></span><input type="radio" name="ceiling_colour" value="Off White"> <span>Off White</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:#f8e4ca" aria-hidden="true"></span><input type="radio" name="ceiling_colour" value="Smooth Cream"> <span>Smooth Cream</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:url(/assets/delta-lux-ash-wood.png) center/cover no-repeat" aria-hidden="true"></span><input type="radio" name="ceiling_colour" value="Ash Wood / LUX"> <span>Ash Wood / LUX</span></label>
+          <label class="choice-card"><span class="colour-chip" style="--swatch:url(/assets/delta-lux-maple.png) center/cover no-repeat" aria-hidden="true"></span><input type="radio" name="ceiling_colour" value="Maple / LUX"> <span>Maple / LUX</span></label>
+          <label class="choice-card"><input type="radio" name="ceiling_colour" value="Unsure"> <span>Unsure</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="profile-options" data-insulated-only>
+        <legend>Coastal or pool roofing options</legend>
+        <label for="quote-coastal-finish">Preferred roofing material (optional)</label>
+        <select id="quote-coastal-finish" name="coastal_roofing_option" aria-describedby="coastal-finish-hint">
+          <option value="">Select if known</option>
+          <option>COLORBOND® Ultra steel</option>
+          <option>DeltaMax™</option>
+          <option>Unsure</option>
+        </select>
+        <p id="coastal-finish-hint" class="muted field-help">For coastal sites or pool enclosures, tell us about the location and whether the pool area is enclosed in the notes. We’ll confirm suitable options.</p>
+      </fieldset>
       <fieldset class="profile-options" aria-describedby="colour-hint">
         <legend>Flashing colour</legend>
         <div class="choice-grid">
@@ -323,7 +346,7 @@ a{color:#006d86}
           <label class="choice-card"><input type="radio" name="flashing_colour" value="Flashings not needed"> <span>Flashings not needed</span></label>
         </div>
       </fieldset>
-      <p id="colour-hint" class="muted field-help">Swatches are indicative. We’ll confirm colour availability when we quote.</p>
+      <p id="colour-hint" class="muted field-help">Swatches are indicative. We’ll confirm which roof, ceiling and flashing colours are available for your order.</p>
       <div class="pair">
         <div>
           <label for="quote-post-size">Post size</label>

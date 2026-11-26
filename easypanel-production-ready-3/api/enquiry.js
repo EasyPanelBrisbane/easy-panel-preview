@@ -91,6 +91,8 @@ export default async function handler(req, res) {
     'Site wind class (customer supplied)': windClass,
     'Wind class follow-up': windReview,
     'Top-side roof colour': clean(singleSkin ? (data.single_skin_colour ?? data.roof_colour) : data.roof_colour, 80),
+    'Ceiling colour or finish': roofDetails && !singleSkin ? clean(data.ceiling_colour, 80) : '',
+    'Coastal or pool roofing option': roofDetails && !singleSkin ? clean(data.coastal_roofing_option, 80) : '',
     'Beam colour': clean(data.beam_colour, 80),
     'Flashing colour': clean(data.flashing_colour, 80),
     'Post size': clean(data.post_size, 80),
