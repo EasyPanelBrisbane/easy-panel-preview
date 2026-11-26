@@ -26,15 +26,21 @@
 <p class="muted"><strong data-colour-caption aria-live="polite">Charcoal</strong>. Photos of Easy Panel showroom boards. Colours may vary on screen.</p></div>
 </div></section><section class="section" id="calculator"><div class="wrap">
 <h2>Decking calculator</h2>
-<p>Enter the length and width of your deck to estimate boards, clips and cost.</p>
+<p>Enter your deck dimensions and joist spacing to estimate boards, clips and cost.</p>
 <form class="card material-tool" data-material-calculator="decking">
   <div class="material-fields">
     <label>Deck length (m)<input type="number" name="length_m" min="0.001" step="0.001" inputmode="decimal" required></label>
     <label>Deck width (m)<input type="number" name="width_m" min="0.001" step="0.001" inputmode="decimal" required></label>
+    <label>Joist spacing (centres)
+      <select name="joist_spacing">
+        <option value="400" selected>400 mm</option>
+        <option value="350">350 mm</option>
+      </select>
+    </label>
   </div>
   <button class="button" type="submit">Calculate materials</button>
   <output class="material-result" aria-live="polite"></output>
-  <p class="muted">The price estimate covers boards and standard clips. Starter clips are counted separately and assume 350 mm joist centres. Confirm cuts, framing and delivery with Easy Panel.</p>
+  <p class="muted">The price estimate covers boards and standard clips. Starter clips are counted separately. Clip quantities use the selected joist spacing. Confirm cuts, framing and delivery with Easy Panel.</p>
 </form>
 </div></section><section class="section product-tint"><div class="wrap">
 <h2>Specifications, warranty and customer feedback</h2><div class="product-grid"><article class="card product-card"><h3>Product information</h3><p>Our product specification lists a 15-year warranty. Ask us for the terms that apply to your order.</p><a href="/wp-content/uploads/EPR-Decking-Decking-Specification-Sheet.pdf">Read the decking specification</a></article>
