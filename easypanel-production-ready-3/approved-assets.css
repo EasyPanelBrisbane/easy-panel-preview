@@ -15,3 +15,12 @@
 .ep-call-link{white-space:nowrap;text-decoration:none;font-weight:700;color:#176a9e;border:1px solid currentColor;padding:9px 12px;border-radius:8px}.ep-footer-phone a{font-weight:700;color:inherit}.ep-contact-call{padding:18px 20px;background:#eef6fb;border-radius:12px;margin-bottom:24px}.ep-contact-number{display:inline-block;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:#145e8b;text-decoration:none;margin:8px 0}.ep-contact-call p{margin-bottom:0}@media(max-width:900px){.ep-call-link{font-size:.9rem;padding:7px 9px}}
 
 .ep-install-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}.ep-install-grid figure{margin:0}.ep-install-grid img{display:block;width:100%;height:250px;object-fit:cover;border-radius:8px}.ep-install-grid figcaption{padding:8px 0;font-size:.92rem;line-height:1.4}
+
+.ep-roof-warranty{display:grid;grid-template-columns:minmax(0,230px) 1fr;align-items:center;gap:clamp(14px,3vw,28px);margin:24px 0;padding:clamp(14px,3vw,24px);border-left:5px solid #42b3bb;border-radius:12px;background:#0e3047;color:#fff}
+.ep-roof-warranty-art{background:#fff;border:1px solid #bfdae0;border-radius:9px;padding:10px 16px}
+.ep-roof-warranty-art img{display:block;width:100%;height:auto}
+.ep-roof-warranty-title{font-size:1.14rem}
+.ep-roof-warranty p{margin:5px 0;color:inherit}
+.ep-roof-warranty a{color:#b7eef2;text-underline-offset:3px}
+.ep-roof-warranty a:focus-visible{outline:2px solid #b7eef2;outline-offset:4px}
+@media(max-width:600px){.ep-roof-warranty{grid-template-columns:1fr}.ep-roof-warranty-art{max-width:230px}}
