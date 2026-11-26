@@ -158,3 +158,15 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
     }
   });
 }
+
+const quotedProducts = new Map([
+  ['roofing', 'Insulated roofing panels'],
+  ['decking', 'Composite decking'],
+]);
+const linkedProduct = quotedProducts.get(new URLSearchParams(window.location.search).get('quote'));
+if (linkedProduct) {
+  const product = document.getElementById('detailed-quote').elements.product;
+  product.value = linkedProduct;
+  product.dispatchEvent(new Event('change'));
+  if (quotePanel.hidden) quoteToggle.click();
+}

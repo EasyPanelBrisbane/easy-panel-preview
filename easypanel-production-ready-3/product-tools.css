@@ -1,0 +1,23 @@
+.product-detail section[id]{scroll-margin-top:175px}
+.product-detail .product-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.product-detail .product-tint{background:#eef5f6}
+.product-detail .product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.product-detail .profile-image{display:block;width:100%;max-width:270px;height:auto;margin:0 0 14px}
+.product-detail h2{margin-top:0}
+.product-detail .product-card h3{margin-top:0}
+.product-detail .product-picker,.product-detail .material-tool{max-width:760px}
+.product-detail .swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px;margin:0;padding:0;border:0}
+.product-detail .swatches legend{margin-bottom:8px;font-weight:700}
+.product-detail .swatch{min-width:0;display:flex;flex-direction:column;gap:4px;border:1px solid #bad0d8;border-radius:8px;padding:8px;cursor:pointer;font-weight:650}
+.product-detail .swatch:has(input:checked){background:#e5f4f5;border-color:#007d91}
+.product-detail .swatch:has(input:focus-visible){outline:2px solid #096681;outline-offset:2px}
+.product-detail .swatch input{margin:0 .25rem 0 0;accent-color:#007d91}
+.product-detail .swatch-chip,.product-detail .product-sample{border:1px solid #23445244;border-radius:5px;background:var(--sample);display:block}
+.product-detail .swatch-chip{aspect-ratio:10/3}
+.product-detail .product-sample{max-width:480px;aspect-ratio:10/3;margin-top:14px}
+.product-detail .material-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.product-detail .material-fields label{display:grid;gap:5px;font-weight:650}
+.product-detail .material-fields input,.product-detail .material-fields select{padding:10px;border:1px solid #a8c0c7;border-radius:7px;font:inherit;width:100%}
+.product-detail button.button{border:0;cursor:pointer;font:inherit;font-weight:700;margin-top:16px}
+.product-detail .material-result{display:block;font-weight:700;margin-top:10px}
+@media(max-width:620px){.product-detail .product-grid,.product-detail .material-fields{grid-template-columns:minmax(0,1fr)}}
