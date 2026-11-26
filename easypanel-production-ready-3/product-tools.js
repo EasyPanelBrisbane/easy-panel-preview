@@ -14,28 +14,31 @@ for (const picker of document.querySelectorAll('[data-colour-picker]')) {
   updateColour();
 }
 
-for (const form of document.querySelectorAll('[data-material-calculator]')) {
+for (const form of document.querySelectorAll('[data-material-calculator="decking"]')) {
+  const boardPriceCents = 7040;
+  const standardClipBoxPriceCents = 5000;
   const result = form.querySelector('output');
+  const plural = (count, word) => `${number.format(count)} ${word}${count === 1 ? '' : 'es'}`;
+
   form.addEventListener('input', () => { result.textContent = ''; });
   form.addEventListener('submit', event => {
     event.preventDefault();
-    const fields = form.elements;
-    const length = Math.round(fields.length_m.valueAsNumber * 1000);
-    const width = Math.round(fields.width_m.valueAsNumber * 1000);
-    if (!Number.isSafeInteger(length) || !Number.isSafeInteger(width) || length < 1 || width < 1) return;
-    const rate = fields.unit_price.valueAsNumber;
-    if (form.dataset.materialCalculator === 'roofing') {
-      const singleSkin = fields.material.value === 'single-skin';
-      const count = Math.ceil(width / (singleSkin ? 300 : 1000));
-      const totalLength = count * length / 1000;
-      const label = singleSkin ? 'sheets' : 'panels';
-      result.textContent = `${number.format(count)} ${label} at ${number.format(length / 1000)} m each (${number.format(totalLength)} lineal metres).`;
-      if (Number.isFinite(rate)) result.textContent += ` Estimated materials cost at your rate: ${dollars.format(totalLength * rate)}.`;
-    } else {
-      const rows = Math.ceil((width + 4) / 144);
-      const count = rows * Math.ceil(length / 5400);
-      result.textContent = `${number.format(rows)} board rows and about ${number.format(count)} full-length boards, allowing one board per piece without reusing offcuts.`;
-      if (Number.isFinite(rate)) result.textContent += ` Estimated board cost at your rate: ${dollars.format(count * rate)}.`;
-    }
+    const lengthMm = Math.round(form.elements.length_m.valueAsNumber * 1000);
+    const widthMm = Math.round(form.elements.width_m.valueAsNumber * 1000);
+    const areaMm2 = lengthMm * widthMm;
+    if (lengthMm < 1 || widthMm < 1 || !Number.isSafeInteger(areaMm2)) return;
+
+    const areaM2 = areaMm2 / 1_000_000;
+    const boards = Math.ceil(areaMm2 * 7 / 5_400_000);
+    const standardClipBoxes = Math.ceil(areaMm2 / 3_500_000);
+    const starterClips = Math.ceil(areaMm2 / (350 * 5400));
+    const starterClipBoxes = Math.ceil(starterClips / 20);
+    const estimateCents = boards * boardPriceCents + standardClipBoxes * standardClipBoxPriceCents;
+    result.textContent = [
+      `${number.format(areaM2)} m² · ${number.format(boards)} × 5.4 m boards`,
+      `${plural(standardClipBoxes, 'box')} of standard clips (100 per box)`,
+      `${plural(starterClipBoxes, 'box')} of starter clips (20 per box)`,
+      `Estimated boards and standard clips: ${dollars.format(estimateCents / 100)} incl. GST.`,
+    ].join('\n');
   });
 }
