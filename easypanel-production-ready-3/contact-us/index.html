@@ -45,8 +45,6 @@ a{color:#006d86}
 .choice-card svg{width:72px;max-width:100%;height:40px;margin:auto;fill:none;stroke:#13778b;stroke-width:2;stroke-linejoin:round}
 .colour-chip{width:100%;height:24px;border:1px solid #53636966;border-radius:3px;background:var(--swatch)}
 .decking-chip{width:100%;aspect-ratio:10/3;display:block;grid-column:1/-1;border-radius:3px;background:url("/assets/decking-colour-swatches.webp") 0 var(--chip-position)/100% 300% no-repeat}
-.more-colours{margin-top:10px}
-.more-colours summary{cursor:pointer;color:#006d86;font-weight:700;padding:6px 0}
 
 .quote-fields,.profile-options{min-width:0;border:0;padding:0;margin:18px 0 0}
 .quote-fields>legend,.profile-options>legend{font-weight:700;padding:0}
@@ -194,9 +192,7 @@ a{color:#006d86}
           </div>
         </div>
         <label for="quote-single-skin-colour">Top-side roof colour</label>
-        <select id="quote-single-skin-colour" name="roof_colour">
-          <option value="">Select a preference</option><option>Off White</option><option>Smooth Cream</option><option>Other (add to notes)</option><option>Unsure</option>
-        </select>
+        <input id="quote-single-skin-colour" name="roof_colour" maxlength="80" placeholder="e.g. COLORBOND® Surfmist">
         <p class="muted field-help">We’ll confirm colour availability when we quote.</p>
       </fieldset>
       <label for="quote-span">Span between beams (m)</label>
@@ -219,7 +215,7 @@ a{color:#006d86}
       </select>
       <p id="wind-hint" class="muted field-help">Use the class shown on your plans if you know it. Otherwise, add your site postcode above and we can give an initial indication. Final wind class depends on site conditions.</p>
       <fieldset class="profile-options" data-insulated-only aria-describedby="colour-hint">
-        <legend>Top-side roof colour</legend>
+        <legend>Top-side roof colour (COLORBOND®)</legend>
         <div class="choice-grid">
           <label class="choice-card"><span class="colour-chip" style="--swatch:#f3ede9" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Surfmist"> <span>Surfmist</span></label>
           <label class="choice-card"><span class="colour-chip" style="--swatch:#f9e8d0" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Classic Cream"> <span>Classic Cream</span></label>
@@ -228,31 +224,8 @@ a{color:#006d86}
           <label class="choice-card"><span class="colour-chip" style="--swatch:#4e5650" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Woodland Grey"> <span>Woodland Grey</span></label>
           <label class="choice-card"><span class="colour-chip" style="--swatch:#2d2e32" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Monument"> <span>Monument</span></label>
           <label class="choice-card"><input type="radio" name="roof_colour" value="Unsure"> <span>Unsure</span></label>
-          <label class="choice-card"><input type="radio" name="roof_colour" value="Other (add to notes)"> <span>Other (add to notes)</span></label>
+          <label class="choice-card"><input type="radio" name="roof_colour" value="Other COLORBOND colour (add to notes)"> <span>Other COLORBOND® colour (add to notes)</span></label>
         </div>
-        <details class="more-colours">
-          <summary>More roof colours (UniCote)</summary>
-          <div class="choice-grid">
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#ffffff" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Hamptons White"> <span>Hamptons White</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#f3ede9" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Off White"> <span>Off White</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#f9e8d0" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Smooth Cream"> <span>Smooth Cream</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#d6d5d2" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Gull Grey"> <span>Gull Grey</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#e4d1ba" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Merino"> <span>Merino</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#656669" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Basal"> <span>Basal</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#bab5b4" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Birch"> <span>Birch</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#8fa48d" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Mist Green"> <span>Mist Green</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#8e979d" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Armour Grey"> <span>Armour Grey</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#847973" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Jasmin Brown"> <span>Jasmin Brown</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#4e5650" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Slate Grey"> <span>Slate Grey</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#495a6a" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Iron Grey"> <span>Iron Grey</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#7a2000" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Heritage Red"> <span>Heritage Red</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#1e6149" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Caufield Green"> <span>Caufield Green</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#2d2e32" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Monolith"> <span>Monolith</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#004158" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Mountain Blue"> <span>Mountain Blue</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#b3bcbd" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Zinc"> <span>Zinc</span></label>
-          <label class="choice-card"><span class="colour-chip" style="--swatch:#7c7b79" aria-hidden="true"></span><input type="radio" name="roof_colour" value="Wallaroo"> <span>Wallaroo</span></label>
-          </div>
-        </details>
       </fieldset>
       <fieldset class="profile-options" aria-describedby="colour-hint">
         <legend>Flashing colour</legend>
