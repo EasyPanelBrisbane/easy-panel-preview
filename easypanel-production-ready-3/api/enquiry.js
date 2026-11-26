@@ -51,6 +51,7 @@ export default async function handler(req, res) {
   }
 
   const windClass = clean(data.wind_class, 30);
+  const roofStyle = clean(data.roofstyle, 100);
   const singleSkin = product === 'Single-skin roofing (DeltaSingle)';
   const roofDetails = singleSkin || ['Insulated roofing panels', 'Roofing and decking'].includes(product);
   const count = clean(singleSkin ? data.sheet_count : data.panel_count, 30);
@@ -75,7 +76,7 @@ export default async function handler(req, res) {
   const accessory = (key, value, max = 80) => accessoryItems.includes(key) ? clean(value, max) : '';
   const fields = {
     'Enquiry type': enquiryLabel, Name: name, Phone: phone, Email: email, [enquiryLabel === 'Detailed quote' ? 'Project site postcode' : 'Delivery postcode']: postcode, Product: product,
-    'Roof style': clean(data.roofstyle, 100), 'Decking project': clean(data.decktype, 100),
+    'Roof style': roofStyle, 'Decking project': clean(data.decktype, 100),
     'Decking colour': clean(data.deck_colour, 50),
     Dimensions: clean(data.dimensions, 250),
     'Roof panel profile': singleSkin ? 'DeltaSingle' : clean(data.roof_profile, 80),
@@ -85,7 +86,7 @@ export default async function handler(req, res) {
     [singleSkin ? 'Length of sheet (m)' : 'Length of panel (m)']: clean(singleSkin ? data.sheet_length_m : data.panel_length_m, 30),
     [singleSkin ? 'Width (number of 300 mm sheets)' : 'Width (number of 1 m panels)']: count ? String(Number(count)) : '',
     'Gutter-end overhang (m)': clean(data.gutter_overhang_m, 30),
-    'Opposite-end overhang (m)': clean(data.opposite_overhang_m, 30),
+    'Opposite-end overhang (m)': roofStyle === 'Attached roof' ? '' : clean(data.opposite_overhang_m, 30),
     'Site wind class (customer supplied)': windClass,
     'Wind class follow-up': windReview,
     'Top-side roof colour': clean(data.roof_colour, 80),

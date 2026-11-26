@@ -35,6 +35,17 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
   const submit = form.querySelector('button[type="submit"]');
 
   const roofing = form.querySelector('[data-roofing]');
+  const roofStyles = form.querySelector('[data-roof-style-options]');
+  const oppositeOverhang = form.querySelector('[data-opposite-overhang]');
+
+  function updateOppositeOverhang() {
+    const attached = form.elements.roofstyle.value === 'Attached roof';
+    oppositeOverhang.hidden = attached;
+    form.elements.opposite_overhang_m.disabled = attached;
+  }
+
+  roofStyles?.addEventListener('change', updateOppositeOverhang);
+
   const decking = form.querySelector('[data-decking]');
   const accessories = form.querySelector('[data-accessories]');
   const accessoriesHeading = accessories?.querySelector('legend');
@@ -71,6 +82,7 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
     generalDimensions.hidden = !showGeneralDimensions;
     dimensionsInput.disabled = !showGeneralDimensions;
     dimensionsLabel.textContent = hasDecking ? 'Approximate decking dimensions' : 'Approximate dimensions';
+    updateOppositeOverhang();
   }
 
   function updateAccessoryDetails() {

@@ -132,7 +132,7 @@ a{color:#006d86}
         <label class="profile-card profile-unsure"><input type="radio" name="roof_profile" value="Unsure"> Unsure</label>
         <p id="profile-hint" class="muted field-help">Profile illustrations by Delta Panels.</p>
       </fieldset>
-      <fieldset class="profile-options">
+      <fieldset class="profile-options" data-roof-style-options>
         <legend>Roof style</legend>
         <div class="choice-grid">
           <label class="choice-card"><svg viewBox="0 0 72 44" aria-hidden="true"><path d="M6 40V19L18 8l13 11v21M9 39h20m2-17 33 8m-5-1v11"/></svg><input type="radio" name="roofstyle" value="Attached roof"> <span>Attached roof</span></label>
@@ -208,7 +208,7 @@ a{color:#006d86}
       <p id="span-hint" class="muted field-help">Enter the longest distance between adjacent beams, excluding overhang. For an attached roof with a receiver channel, measure from the channel to the next beam. Leave blank if unsure.</p>
       <div class="pair">
         <div><label for="quote-low-overhang">Overhang at gutter end (m)</label><input id="quote-low-overhang" name="gutter_overhang_m" type="number" inputmode="decimal" min="0" step="any"></div>
-        <div><label for="quote-high-overhang">Overhang at opposite end (m)</label><input id="quote-high-overhang" name="opposite_overhang_m" type="number" inputmode="decimal" min="0" step="any"></div>
+        <div data-opposite-overhang><label for="quote-high-overhang">Overhang at opposite end (m)</label><input id="quote-high-overhang" name="opposite_overhang_m" type="number" inputmode="decimal" min="0" step="any"></div>
       </div>
       <label for="quote-wind">Site wind class</label>
       <select id="quote-wind" name="wind_class" aria-describedby="wind-hint">
