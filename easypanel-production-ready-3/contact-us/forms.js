@@ -36,6 +36,10 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
 
   const roofing = form.querySelector('[data-roofing]');
   const decking = form.querySelector('[data-decking]');
+  const accessories = form.querySelector('[data-accessories]');
+  const accessoriesHeading = accessories?.querySelector('legend');
+  const accessoryChoices = Array.from(accessories?.querySelectorAll('[name="accessory_items"]') ?? []);
+  const accessoryDetails = Array.from(accessories?.querySelectorAll('[data-accessory-details]') ?? []);
   const generalDimensions = form.querySelector('[data-general-dimensions]');
   const dimensionsLabel = generalDimensions?.querySelector('label');
   const dimensionsInput = generalDimensions?.querySelector('input');
@@ -47,8 +51,10 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
     const insulated = interest === 'Insulated roofing panels' || interest === 'Roofing and decking';
     const singleSkin = interest === 'Single-skin roofing (DeltaSingle)';
     const hasDecking = interest === 'Composite decking' || interest === 'Roofing and decking';
+    const accessoriesOnly = interest === 'Roofing accessories';
     const sections = [
-      [roofing, insulated || singleSkin || interest === 'Roofing accessories'],
+      [roofing, insulated || singleSkin],
+      [accessories, insulated || singleSkin || accessoriesOnly],
       [decking, hasDecking],
       [roofing.querySelector('[data-insulated-measurements]'), insulated],
       [roofing.querySelector('[data-single-skin-only]'), singleSkin],
@@ -60,12 +66,26 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
       section.hidden = !visible;
       section.disabled = !visible;
     }
-    const showGeneralDimensions = hasDecking || (!insulated && !singleSkin);
+    accessoriesHeading.textContent = accessoriesOnly ? 'Roofing accessories' : 'Add accessories to my quote';
+    const showGeneralDimensions = hasDecking || (!insulated && !singleSkin && !accessoriesOnly);
     generalDimensions.hidden = !showGeneralDimensions;
     dimensionsInput.disabled = !showGeneralDimensions;
     dimensionsLabel.textContent = hasDecking ? 'Approximate decking dimensions' : 'Approximate dimensions';
   }
 
+  function updateAccessoryDetails() {
+    const selected = new Set(accessoryChoices.filter(choice => choice.checked).map(choice => choice.value));
+    for (const section of accessoryDetails) {
+      section.hidden = !selected.has(section.dataset.accessoryDetails);
+      section.disabled = section.hidden;
+    }
+  }
+
+  for (const choice of accessoryChoices) {
+    choice.addEventListener('change', updateAccessoryDetails);
+  }
+  window.addEventListener('pageshow', updateAccessoryDetails);
+  updateAccessoryDetails();
   product.addEventListener('change', updateProjectFields);
   window.addEventListener('pageshow', updateProjectFields);
   updateProjectFields();
@@ -92,7 +112,9 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
       return;
     }
 
-    const data = Object.fromEntries(new FormData(form));
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    data.accessory_items = formData.getAll('accessory_items');
     status.textContent = 'Sending your enquiry…';
     submit.disabled = true;
     try {
@@ -108,6 +130,7 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
       if (response.ok) {
         form.reset();
         updateProjectFields();
+        updateAccessoryDetails();
         window.gtag?.('event', 'generate_lead', {
           form_name: 'quote_request',
           enquiry_type: data.enquiry_type,

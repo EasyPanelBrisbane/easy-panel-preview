@@ -52,7 +52,7 @@ export default async function handler(req, res) {
 
   const windClass = clean(data.wind_class, 30);
   const singleSkin = product === 'Single-skin roofing (DeltaSingle)';
-  const roofDetails = singleSkin || ['Insulated roofing panels', 'Roofing and decking', 'Roofing accessories'].includes(product);
+  const roofDetails = singleSkin || ['Insulated roofing panels', 'Roofing and decking'].includes(product);
   const count = clean(singleSkin ? data.sheet_count : data.panel_count, 30);
   if (count && (!Number.isSafeInteger(Number(count)) || Number(count) < 1)) {
     return respond(res, 400, 'Enter a whole number of panels or sheets.');
@@ -60,6 +60,19 @@ export default async function handler(req, res) {
   const windReview = enquiryLabel === 'Detailed quote' && roofDetails && postcode && (!windClass || windClass === 'Unsure')
     ? 'Use the site postcode for an initial indication and confirm the site wind class.'
     : '';
+  const accessoryOptions = {
+    flashings: 'Flashings, barges and receiver channels',
+    rainwater: 'Gutters and downpipes',
+    fixings: 'Roof screws, rivets and other fixings',
+    skylights: 'Skylight panels',
+    lights: 'LED light kits',
+    fans: 'Fan brackets',
+    advice: 'Unsure which parts are needed',
+  };
+  const accessoryItems = enquiryLabel === 'Detailed quote' && (roofDetails || product === 'Roofing accessories') && Array.isArray(data.accessory_items)
+    ? Object.keys(accessoryOptions).filter(key => data.accessory_items.includes(key))
+    : [];
+  const accessory = (key, value, max = 80) => accessoryItems.includes(key) ? clean(value, max) : '';
   const fields = {
     'Enquiry type': enquiryLabel, Name: name, Phone: phone, Email: email, [enquiryLabel === 'Detailed quote' ? 'Project site postcode' : 'Delivery postcode']: postcode, Product: product,
     'Roof style': clean(data.roofstyle, 100), 'Decking project': clean(data.decktype, 100),
@@ -79,6 +92,18 @@ export default async function handler(req, res) {
     'Flashing colour': clean(data.flashing_colour, 80),
     'Post size': clean(data.post_size, 80),
     'Post mounting': clean(data.post_mount, 80),
+    'Requested accessories': accessoryItems.map(key => accessoryOptions[key]).join('; '),
+    'Flashing or channel parts': accessory('flashings', data.accessory_flashing_type, 160),
+    'Flashing or channel total length (m)': accessory('flashings', data.accessory_flashing_length, 30),
+    'Accessory flashing colour': accessory('flashings', data.accessory_flashing_colour),
+    'Gutter or downpipe details': accessory('rainwater', data.accessory_rainwater_style, 160),
+    'Gutter or downpipe total length (m)': accessory('rainwater', data.accessory_rainwater_length, 30),
+    'Gutter or downpipe colour': accessory('rainwater', data.accessory_rainwater_colour),
+    'Roof profile for fixings': accessory('fixings', data.accessory_roof_profile),
+    'Fixing into': accessory('fixings', data.accessory_fixings_base),
+    'Skylight panels requested': accessory('skylights', data.accessory_skylight_count, 30),
+    'LED kits requested': accessory('lights', data.accessory_light_count, 30),
+    'Fan brackets requested': accessory('fans', data.accessory_fan_count, 30),
     Message: message,
   };
   const text = Object.entries(fields).filter(([, value]) => value).map(([key, value]) => `${key}: ${value}`).join('\n');

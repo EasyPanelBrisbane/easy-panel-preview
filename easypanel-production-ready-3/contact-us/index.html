@@ -51,6 +51,7 @@ a{color:#006d86}
 .quote-fields,.profile-options{min-width:0;border:0;padding:0;margin:18px 0 0}
 .quote-fields>legend,.profile-options>legend{font-weight:700;padding:0}
 .quote-fields>legend{font-size:1.12rem}
+.accessory-count{border:0;margin:0;padding:0;min-width:0}
 .profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .profile-card{display:flex;align-items:center;gap:7px;padding:8px;margin:0;border:1px solid #aabfc4;border-radius:7px;color:#172e38;cursor:pointer}
 .profile-grid .profile-card{display:grid;grid-template-columns:auto minmax(0,1fr)}
@@ -307,6 +308,58 @@ a{color:#006d86}
         </div>
         <p id="deck-colour-hint" class="muted field-help">Shown from our showroom boards. Colours may vary on screen.</p>
       </fieldset>
+    </fieldset>
+    <fieldset class="quote-fields" data-accessories hidden disabled>
+      <legend id="quote-accessories-heading">Add accessories to my quote</legend>
+      <p class="muted field-help">Select any items you’d like us to quote or check availability for. Leave details blank if you’re unsure.</p>
+      <div class="choice-grid">
+        <label class="choice-card"><input type="checkbox" name="accessory_items" value="flashings"> <span>Flashings, barges and receiver channels</span></label>
+        <label class="choice-card"><input type="checkbox" name="accessory_items" value="rainwater"> <span>Gutters and downpipes</span></label>
+        <label class="choice-card"><input type="checkbox" name="accessory_items" value="fixings"> <span>Roof screws, rivets and other fixings</span></label>
+        <label class="choice-card"><input type="checkbox" name="accessory_items" value="skylights"> <span>Skylight panels</span></label>
+        <label class="choice-card"><input type="checkbox" name="accessory_items" value="lights"> <span>LED light kits</span></label>
+        <label class="choice-card"><input type="checkbox" name="accessory_items" value="fans"> <span>Fan brackets</span></label>
+        <label class="choice-card"><input type="checkbox" name="accessory_items" value="advice"> <span>Unsure which parts I need</span></label>
+      </div>
+      <fieldset class="profile-options" data-accessory-details="flashings" hidden disabled>
+        <legend>Flashings and channels</legend>
+        <label for="quote-accessory-flashing-type">Parts needed</label>
+        <input id="quote-accessory-flashing-type" name="accessory_flashing_type" maxlength="160" placeholder="e.g. side barge, Z flashing or receiver channel">
+        <div class="pair">
+          <div><label for="quote-accessory-flashing-length">Approximate total length (m)</label><input id="quote-accessory-flashing-length" name="accessory_flashing_length" type="number" inputmode="decimal" min="0.01" step="any"></div>
+          <div><label for="quote-accessory-flashing-colour">Preferred colour</label><input id="quote-accessory-flashing-colour" name="accessory_flashing_colour" maxlength="80" placeholder="e.g. Surfmist"></div>
+        </div>
+      </fieldset>
+      <fieldset class="profile-options" data-accessory-details="rainwater" hidden disabled>
+        <legend>Gutters and downpipes</legend>
+        <label for="quote-accessory-rainwater-style">Gutter or downpipe details</label>
+        <input id="quote-accessory-rainwater-style" name="accessory_rainwater_style" maxlength="160" placeholder="e.g. quad gutter or round downpipe">
+        <div class="pair">
+          <div><label for="quote-accessory-rainwater-length">Approximate total length (m)</label><input id="quote-accessory-rainwater-length" name="accessory_rainwater_length" type="number" inputmode="decimal" min="0.01" step="any"></div>
+          <div><label for="quote-accessory-rainwater-colour">Preferred colour</label><input id="quote-accessory-rainwater-colour" name="accessory_rainwater_colour" maxlength="80"></div>
+        </div>
+      </fieldset>
+      <fieldset class="profile-options" data-accessory-details="fixings" hidden disabled>
+        <legend>Roofing fixings</legend>
+        <div class="pair">
+          <div><label for="quote-accessory-roof-profile">Roof profile</label><select id="quote-accessory-roof-profile" name="accessory_roof_profile"><option value="">Select if known</option><option>DeltaTrim</option><option>DeltaOrb</option><option>DeltaSingle</option><option>Other</option><option>Unsure</option></select></div>
+          <div><label for="quote-accessory-fixings-base">Fixing into</label><select id="quote-accessory-fixings-base" name="accessory_fixings_base"><option value="">Select if known</option><option>Timber</option><option>Steel</option><option>Unsure</option></select></div>
+        </div>
+      </fieldset>
+      <div class="pair">
+        <fieldset class="accessory-count" data-accessory-details="skylights" hidden disabled>
+          <label for="quote-accessory-skylight-count">Number of skylight panels</label>
+          <input id="quote-accessory-skylight-count" name="accessory_skylight_count" type="number" inputmode="numeric" min="1" step="1">
+        </fieldset>
+        <fieldset class="accessory-count" data-accessory-details="lights" hidden disabled>
+          <label for="quote-accessory-light-count">Number of LED kits</label>
+          <input id="quote-accessory-light-count" name="accessory_light_count" type="number" inputmode="numeric" min="1" step="1">
+        </fieldset>
+        <fieldset class="accessory-count" data-accessory-details="fans" hidden disabled>
+          <label for="quote-accessory-fan-count">Number of fan brackets</label>
+          <input id="quote-accessory-fan-count" name="accessory_fan_count" type="number" inputmode="numeric" min="1" step="1">
+        </fieldset>
+      </div>
     </fieldset>
     <label for="quote-files">Attach photos or plans (optional)</label>
     <input id="quote-files" name="files" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" multiple aria-describedby="quote-files-hint">
