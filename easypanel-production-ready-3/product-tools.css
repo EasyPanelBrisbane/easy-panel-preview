@@ -21,3 +21,6 @@
 .product-detail button.button{border:0;cursor:pointer;font:inherit;font-weight:700;margin-top:16px}
 .product-detail .material-result{display:block;font-weight:700;margin-top:10px}
 @media(max-width:620px){.product-detail .product-grid,.product-detail .material-fields{grid-template-columns:minmax(0,1fr)}}
+.product-detail .additional-colours{margin-top:12px}
+.product-detail .additional-colours summary{cursor:pointer;color:#096681;font-weight:700;padding:6px 0}
+.product-detail .additional-colours .swatches{margin-top:8px}
