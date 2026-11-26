@@ -51,6 +51,7 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
   const accessoriesHeading = accessories?.querySelector('legend');
   const accessoryChoices = Array.from(accessories?.querySelectorAll('[name="accessory_items"]') ?? []);
   const accessoryDetails = Array.from(accessories?.querySelectorAll('[data-accessory-details]') ?? []);
+  const partsOnlyChoices = Array.from(accessories?.querySelectorAll('[data-parts-only]') ?? []);
   const generalDimensions = form.querySelector('[data-general-dimensions]');
   const dimensionsLabel = generalDimensions?.querySelector('label');
   const dimensionsInput = generalDimensions?.querySelector('input');
@@ -78,6 +79,11 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
       section.disabled = !visible;
     }
     accessoriesHeading.textContent = accessoriesOnly ? 'Roofing accessories' : 'Add accessories to my quote';
+    for (const choice of partsOnlyChoices) {
+      choice.hidden = !accessoriesOnly;
+      choice.querySelector('input').disabled = !accessoriesOnly;
+    }
+    updateAccessoryDetails();
     const showGeneralDimensions = hasDecking || (!insulated && !singleSkin && !accessoriesOnly);
     generalDimensions.hidden = !showGeneralDimensions;
     dimensionsInput.disabled = !showGeneralDimensions;
@@ -86,7 +92,7 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
   }
 
   function updateAccessoryDetails() {
-    const selected = new Set(accessoryChoices.filter(choice => choice.checked).map(choice => choice.value));
+    const selected = new Set(accessoryChoices.filter(choice => choice.checked && !choice.disabled).map(choice => choice.value));
     for (const section of accessoryDetails) {
       section.hidden = !selected.has(section.dataset.accessoryDetails);
       section.disabled = section.hidden;
@@ -96,8 +102,6 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
   for (const choice of accessoryChoices) {
     choice.addEventListener('change', updateAccessoryDetails);
   }
-  window.addEventListener('pageshow', updateAccessoryDetails);
-  updateAccessoryDetails();
   product.addEventListener('change', updateProjectFields);
   window.addEventListener('pageshow', updateProjectFields);
   updateProjectFields();
@@ -142,7 +146,6 @@ for (const form of document.querySelectorAll('[data-enquiry]')) {
       if (response.ok) {
         form.reset();
         updateProjectFields();
-        updateAccessoryDetails();
         window.gtag?.('event', 'generate_lead', {
           form_name: 'quote_request',
           enquiry_type: data.enquiry_type,

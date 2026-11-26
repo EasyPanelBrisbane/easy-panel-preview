@@ -38,6 +38,8 @@ a{color:#006d86}
 .details-quote{margin-top:24px;padding-top:16px;border-top:1px solid #dbe4e5}
 .choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,105px),1fr));gap:8px;margin-top:8px}
 .choice-card{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:5px;padding:8px;margin:0;border:1px solid #aabfc4;border-radius:7px;font-size:.86rem;line-height:1.2;overflow-wrap:anywhere;cursor:pointer}
+.choice-card[hidden]{display:none}
+.accessory-photo{display:block;grid-column:1/-1;width:100%;aspect-ratio:5/3;object-fit:cover;border-radius:4px}
 .choice-card input{width:auto;margin:0;accent-color:#13778b}
 .choice-card:has(input:checked){border-color:#13778b;background:#edf7f8}
 .choice-card:has(input:focus-visible){outline:2px solid #006d86;outline-offset:2px}
@@ -284,15 +286,15 @@ a{color:#006d86}
     </fieldset>
     <fieldset class="quote-fields" data-accessories hidden disabled>
       <legend id="quote-accessories-heading">Add accessories to my quote</legend>
-      <p class="muted field-help">Select any items you’d like us to quote or check availability for. Leave details blank if you’re unsure.</p>
+      <p class="muted field-help">Select any items you’d like us to quote. Quantities are optional.</p>
       <div class="choice-grid">
-        <label class="choice-card"><input type="checkbox" name="accessory_items" value="flashings"> <span>Flashings, barges and receiver channels</span></label>
-        <label class="choice-card"><input type="checkbox" name="accessory_items" value="rainwater"> <span>Gutters and downpipes</span></label>
-        <label class="choice-card"><input type="checkbox" name="accessory_items" value="fixings"> <span>Roof screws, rivets and other fixings</span></label>
-        <label class="choice-card"><input type="checkbox" name="accessory_items" value="skylights"> <span>Skylight panels</span></label>
-        <label class="choice-card"><input type="checkbox" name="accessory_items" value="lights"> <span>LED light kits</span></label>
-        <label class="choice-card"><input type="checkbox" name="accessory_items" value="fans"> <span>Fan brackets</span></label>
-        <label class="choice-card"><input type="checkbox" name="accessory_items" value="advice"> <span>Unsure which parts I need</span></label>
+        <label class="choice-card" data-parts-only><input type="checkbox" name="accessory_items" value="flashings"> <span>Flashings, barges and receiver channels</span></label>
+        <label class="choice-card" data-parts-only><input type="checkbox" name="accessory_items" value="rainwater"> <span>Gutters and downpipes</span></label>
+        <label class="choice-card" data-parts-only><input type="checkbox" name="accessory_items" value="fixings"> <span>Roof screws, rivets and other fixings</span></label>
+        <label class="choice-card"><img class="accessory-photo" src="/assets/quote-accessory-skylight.webp" alt="" loading="lazy"><input type="checkbox" name="accessory_items" value="skylights"> <span>Skylights</span></label>
+        <label class="choice-card"><img class="accessory-photo" src="/assets/quote-accessory-led.webp" alt="" loading="lazy"><input type="checkbox" name="accessory_items" value="lights"> <span>LED lights</span></label>
+        <label class="choice-card" data-parts-only><input type="checkbox" name="accessory_items" value="fans"> <span>Fan brackets</span></label>
+        <label class="choice-card" data-parts-only><input type="checkbox" name="accessory_items" value="advice"> <span>Unsure which parts I need</span></label>
       </div>
       <fieldset class="profile-options" data-accessory-details="flashings" hidden disabled>
         <legend>Flashings and channels</legend>

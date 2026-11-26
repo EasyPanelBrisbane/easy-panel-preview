@@ -71,7 +71,8 @@ export default async function handler(req, res) {
     advice: 'Unsure which parts are needed',
   };
   const accessoryItems = enquiryLabel === 'Detailed quote' && (roofDetails || product === 'Roofing accessories') && Array.isArray(data.accessory_items)
-    ? Object.keys(accessoryOptions).filter(key => data.accessory_items.includes(key))
+    ? Object.keys(accessoryOptions).filter(key =>
+      data.accessory_items.includes(key) && (product === 'Roofing accessories' || key === 'skylights' || key === 'lights'))
     : [];
   const accessory = (key, value, max = 80) => accessoryItems.includes(key) ? clean(value, max) : '';
   const fields = {
