@@ -19,10 +19,29 @@
 /* Delta Panels roof warranty */
 .ep-roof-warranty{display:grid;grid-template-columns:minmax(0,350px) minmax(0,1fr);align-items:center;gap:clamp(18px,4vw,36px);margin:24px 0;padding:clamp(16px,4vw,30px);border-left:5px solid #42b3bb;border-radius:12px;background:#0e3047;color:#fff}
 .ep-roof-warranty-badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.ep-roof-warranty-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:158px;padding:12px 8px 30px;background:#b7eef2;color:#0e3047;text-align:center;border-radius:10px 10px 0 0;clip-path:polygon(0 0,100% 0,100% 83%,50% 100%,0 83%)}
-.ep-roof-warranty-badge strong{font-size:clamp(2rem,5vw,2.75rem);line-height:1}
-.ep-roof-warranty-badge span{font-size:1rem;line-height:1.2}
-.ep-roof-warranty-badge .ep-roof-warranty-years{margin:3px 0 7px;font-weight:700}
+.ep-roof-warranty-badge{
+  --shield:polygon(0 0,100% 0,100% 77%,50% 100%,0 77%);
+  position:relative;
+  isolation:isolate;
+  display:grid;
+  grid-template-rows:2.5rem auto auto auto;
+  justify-items:center;
+  align-content:start;
+  min-width:0;
+  min-height:180px;
+  padding:12px 0 30px;
+  color:#fff;
+  text-align:center;
+}
+.ep-roof-warranty-badge::before,.ep-roof-warranty-badge::after{
+  content:"";position:absolute;z-index:-1;clip-path:var(--shield);
+}
+.ep-roof-warranty-badge::before{inset:0 6px;background:#74cbd1}
+.ep-roof-warranty-badge::after{inset:3px 9px 5px;background:linear-gradient(160deg,#174964,#0b2539)}
+.ep-roof-warranty-coverage{display:grid;place-content:center;max-width:12ch;padding:0 2px;color:#e6f9fa;font-size:.875rem;font-weight:750;line-height:1.12;text-transform:uppercase}
+.ep-roof-warranty-ribbon{align-self:center;width:100%;padding:5px 0;background:#b7eef2;color:#0e3047;font-size:clamp(.875rem,2vw,1.08rem);font-weight:850;line-height:1.2;letter-spacing:.06em}
+.ep-roof-warranty-badge strong{margin-top:9px;font-size:clamp(2.25rem,5vw,2.85rem);line-height:.95}
+.ep-roof-warranty-years{margin-top:3px;font-size:.813rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
 .ep-roof-warranty h2{margin:0 0 8px;color:inherit;font-size:1.3rem}
 .ep-roof-warranty p{margin:7px 0;color:inherit}
 .ep-roof-warranty a{color:#b7eef2;text-underline-offset:3px}
