@@ -48,3 +48,7 @@
 .ep-roof-warranty a:focus-visible{outline:2px solid #b7eef2;outline-offset:4px}
 @media(max-width:760px){.ep-roof-warranty{grid-template-columns:minmax(0,1fr)}.ep-roof-warranty-badges{width:100%;max-width:445px}}
 @media(max-width:480px){.ep-roof-warranty-badges{grid-template-columns:repeat(2,minmax(0,1fr))}.ep-roof-warranty-badge:last-child{grid-column:1/-1;width:calc((100% - 12px)/2);justify-self:center}}
+
+/* Products card photography */
+.ep-product-cards .ep-photo{aspect-ratio:4/3;object-fit:cover}
+.ep-product-cards .ep-product-photo-contain{object-fit:contain;border:1px solid #dce7ea;background:#fff}
